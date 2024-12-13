@@ -30,7 +30,7 @@
             background: rgba(0, 0, 0, 0.8);
             box-shadow: 0 4px 30px rgba(255, 0, 255, 0.7);
             max-width: 600px;
-            width: 90%; /* Ancho adaptable */
+            width: 90%;
         }
 
         .login-container::before {
@@ -162,51 +162,14 @@
             text-decoration: underline;
         }
 
-        /* Responsividad */
-        @media (max-width: 768px) {
-            .login-container {
-                flex-direction: column; /* Imagen y formulario en columna */
-                padding: 20px;
-            }
-
-            .login-container img {
-                max-width: 150px;
-                margin-bottom: 20px; /* Espaciado debajo de la imagen */
-            }
-
-            .form-container h2 {
-                font-size: 20px;
-            }
-
-            .input-group {
-                max-width: 250px; /* Reduce el ancho del grupo */
-            }
-
-            .form-container button {
-                width: 250px;
-            }
+        .forgot-password {
+            color: #ff00ff;
+            font-size: 14px;
+            margin-top: 10px;
         }
 
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 10px;
-            }
-
-            .login-container img {
-                max-width: 120px;
-            }
-
-            .form-container h2 {
-                font-size: 18px;
-            }
-
-            .input-group {
-                max-width: 200px;
-            }
-
-            .form-container button {
-                width: 200px;
-            }
+        .forgot-password:hover {
+            color: #ffffff;
         }
     </style>
 </head>
@@ -230,6 +193,7 @@
                 </div>
                 <button type="submit">INICIAR SESIÓN</button>
             </form>
+            <a href="{{ route('password.request') }}" class="forgot-password">¿Olvidaste tu contraseña?</a>
             <a href="{{ route('register') }}">¿Todavía no tienes una cuenta? Regístrate</a>
         </div>
     </div>
