@@ -6,11 +6,11 @@
         <div class="auth-form-container">
             <h2>VERIFICACIÓN EN DOS PASOS</h2>
 
-            <div class="mb-4 text-sm text-gray-600" x-data="{ recovery: false }" x-show="! recovery">
+            <div class="mb-4 text-sm text-white" x-data="{ recovery: false }" x-show="! recovery">
                 {{ __('Por favor, confirma el acceso a tu cuenta ingresando el código de autenticación proporcionado por tu aplicación de autenticación.') }}
             </div>
 
-            <div class="mb-4 text-sm text-gray-600" x-cloak x-data="{ recovery: false }" x-show="recovery">
+            <div class="mb-4 text-sm text-white" x-cloak x-data="{ recovery: false }" x-show="recovery">
                 {{ __('Por favor, confirma el acceso a tu cuenta ingresando uno de tus códigos de recuperación de emergencia.') }}
             </div>
 
@@ -21,7 +21,7 @@
 
                 <div class="input-group mt-4" x-data="{ recovery: false }" x-show="! recovery">
                     <i class="fa fa-key icon"></i>
-                    <x-input id="code" class="block mt-1 w-full" type="text" inputmode="numeric" name="code" autofocus x-ref="code" autocomplete="one-time-code" placeholder="CÓDIGO" />
+                    <x-input id="code" class="block mt-1 w-full " type="text" inputmode="numeric" name="code" autofocus x-ref="code" autocomplete="one-time-code" placeholder="CÓDIGO" />
                 </div>
 
                 <div class="input-group mt-4" x-cloak x-data="{ recovery: false }" x-show="recovery">
@@ -34,21 +34,15 @@
                         {{ __('Verificar') }}
                     </button>
 
-                    <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
+                    <button type="button" class="text-sm text-gray-600 hover:text-white underline cursor-pointer"
                             x-data="{ recovery: false }" x-show="! recovery"
-                            x-on:click="
-                                recovery = true;
-                                $nextTick(() => { $refs.recovery_code.focus() })
-                            ">
+                            x-on:click="recovery = true; $nextTick(() => { $refs.recovery_code.focus() })">
                         {{ __('Usar un código de recuperación') }}
                     </button>
 
                     <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
                             x-cloak x-data="{ recovery: false }" x-show="recovery"
-                            x-on:click="
-                                recovery = false;
-                                $nextTick(() => { $refs.code.focus() })
-                            ">
+                            x-on:click="recovery = false; $nextTick(() => { $refs.code.focus() })">
                         {{ __('Usar un código de autenticación') }}
                     </button>
                 </div>
@@ -57,8 +51,9 @@
     </div>
 
     <style>
+        /* Fondo general negro */
         body {
-            background-color: #000;
+            background-color: #000; /* Fondo negro */
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -69,43 +64,60 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        .auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0, 255, 255, 0.7);
+    max-width: 600px;
+    width: 100%;
+    margin-top: 50px;
+
+    /* Fondo general del contenedor */
+    background: url('{{ asset('images/fondo.jpg') }}') no-repeat center center;
+    background-size: cover; /* Ajusta la imagen al tamaño sin distorsión */
+}
+
+.auth-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Capa opaca negra al 60% */
+    backdrop-filter: blur(5px); /* Desenfoque del fondo */
+    z-index: 0; /* Coloca el fondo detrás del contenido */
+}
+
         .logo-container {
             display: flex;
             justify-content: center;
-            margin-bottom: -20px;
+            margin-bottom: -35px;
             z-index: 10;
-        }
-
-        .auth-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.8);
-            box-shadow: 0 4px 30px rgba(0, 255, 255, 0.7);
-            max-width: 600px;
-            width: 100%;
-            max-height: 300px;
-            margin-top: 50px;
         }
 
         .custom-logo {
             max-width: 150px;
+            box-shadow: 0 4px 30px rgba(0, 255, 255, 0.7);
         }
 
         .auth-form-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            padding: 20px;
-        }
+    position: relative; /* Coloca el contenido encima del pseudo-elemento */
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 20px;
+}
 
         .auth-form-container h2 {
             font-size: 24px;
@@ -150,8 +162,8 @@
 
         .auth-button {
             margin: 0;
-            padding: 10px 15px;
-            width: 200px;
+            padding: 8px 13px;
+            width: 250px;
             background: #00ffff;
             color: #fff;
             border: none;
