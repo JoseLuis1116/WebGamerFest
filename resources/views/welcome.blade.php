@@ -12,6 +12,10 @@
         <!-- Styles -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
+            :root {
+                --dynamic-color: #c43cc6;
+            }
+
             body {
                 background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
                 color: #fff;
@@ -19,7 +23,7 @@
             }
             .navbar {
                 background-color: #0d0d0d;
-                border-bottom: 3px solid #c43cc6;
+                border-bottom: 3px solid var(--dynamic-color);
                 position: sticky;
                 top: 0;
                 z-index: 1000;
@@ -30,8 +34,8 @@
                 text-transform: uppercase;
             }
             .navbar .nav-link.active {
-                color: #c43cc6;
-                border-bottom: 2px solid #c43cc6;
+                color: var(--dynamic-color);
+                border-bottom: 2px solid var(--dynamic-color);
                 padding-bottom: 5px;
             }
             .btn-register-fixed {
@@ -39,11 +43,11 @@
                 top: 20px;
                 left: 50%;
                 transform: translateX(-50%);
-                background-color: #c43cc6;
+                background-color: var(--dynamic-color);
                 color: #fff;
                 border-radius: 20px;
                 padding: 0.5rem 1.5rem;
-                border: 2px solid #c43cc6;
+                border: 2px solid var(--dynamic-color);
                 font-size: 0.9rem;
                 z-index: 1000;
                 transition: background-color 0.3s, color 0.3s;
@@ -51,7 +55,7 @@
             }
             .btn-register-fixed:hover {
                 background-color: transparent;
-                color: #c43cc6;
+                color: var(--dynamic-color);
             }
             .btn-register-fixed.hidden {
                 display: none;
@@ -62,13 +66,13 @@
                 justify-content: space-between;
                 background-color: #1a1a1a;
                 padding: 3rem;
-                border-top: 3px solid #c43cc6;
+                border-top: 3px solid var(--dynamic-color);
             }
             .hero h1 {
-                color: #c43cc6;
+                color: var(--dynamic-color);
                 text-transform: uppercase;
                 font-size: 2rem;
-                text-shadow: 0px 0px 8px #c43cc6;
+                text-shadow: 0px 0px 8px var(--dynamic-color);
                 font-family: 'Press Start 2P', cursive;
             }
             .hero p {
@@ -79,7 +83,7 @@
                 max-width: 400px;
                 height: auto;
                 border-radius: 10px;
-                box-shadow: 0px 0px 15px #c43cc6;
+                box-shadow: 0px 0px 15px var(--dynamic-color);
             }
             .cards {
                 display: flex;
@@ -90,26 +94,26 @@
             .section-title {
                 text-align: center;
                 font-family: 'Press Start 2P', cursive;
-                color: #c43cc6;
+                color: var(--dynamic-color);
                 font-size: 1.5rem;
                 margin-bottom: 1rem;
-                text-shadow: 0px 0px 8px #c43cc6;
+                text-shadow: 0px 0px 8px var(--dynamic-color);
             }
             .card {
                 background: #1a1a1a;
-                border: 2px solid #c43cc6;
+                border: 2px solid var(--dynamic-color);
                 border-radius: 15px;
                 text-align: center;
                 padding: 1.5rem;
-                box-shadow: 0px 0px 10px #c43cc6;
+                box-shadow: 0px 0px 10px var(--dynamic-color);
                 transition: transform 0.3s, box-shadow 0.3s;
             }
             .card:hover {
                 transform: scale(1.05);
-                box-shadow: 0px 0px 20px #c43cc6;
+                box-shadow: 0px 0px 20px var(--dynamic-color);
             }
             .card h3 {
-                color: #c43cc6;
+                color: var(--dynamic-color);
                 margin-bottom: 1rem;
                 font-size: 1rem;
                 font-family: 'Press Start 2P', cursive;
@@ -125,10 +129,10 @@
             .games-section h2 {
                 text-align: center;
                 font-family: 'Press Start 2P', cursive;
-                color: #c43cc6;
+                color: var(--dynamic-color);
                 font-size: 1.5rem;
                 margin-bottom: 1rem;
-                text-shadow: 0px 0px 8px #c43cc6;
+                text-shadow: 0px 0px 8px var(--dynamic-color);
             }
             .games-grid {
                 display: grid;
@@ -139,7 +143,7 @@
                 width: 100%;
                 height: auto;
                 border-radius: 10px;
-                box-shadow: 0px 0px 10px #c43cc6;
+                box-shadow: 0px 0px 10px var(--dynamic-color);
                 transition: transform 0.3s;
             }
             .games-grid img:hover {
@@ -154,15 +158,15 @@
             .sponsors-section {
                 padding: 2rem;
                 background-color: #1a1a1a;
-                border-top: 3px solid #c43cc6;
+                border-top: 3px solid var(--dynamic-color);
             }
             .sponsors-section h2 {
                 text-align: center;
                 font-family: 'Press Start 2P', cursive;
-                color: #c43cc6;
+                color: var(--dynamic-color);
                 font-size: 1.5rem;
                 margin-bottom: 1rem;
-                text-shadow: 0px 0px 8px #c43cc6;
+                text-shadow: 0px 0px 8px var(--dynamic-color);
             }
             .sponsors-grid {
                 display: grid;
@@ -186,7 +190,7 @@
                 text-align: center;
                 padding: 1rem;
                 font-size: 0.8rem;
-                border-top: 3px solid #c43cc6;
+                border-top: 3px solid var(--dynamic-color);
             }
             .btn-register-fixed {
                 position: static;
@@ -196,49 +200,49 @@
         </style>
     </head>
     <body>
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="/images/logo.jpeg" alt="Logo" style="height: 50px; margin-right: 10px;">
-                <span style="color: #fff; font-size: 1.2rem; font-family: 'Press Start 2P', cursive;">Gamer Fest</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#games-section">Juegos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Iniciar Sesión</a>
-                    </li>
-                </ul>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="/images/logo.jpg" alt="Logo" style="height: 50px; margin-right: 10px;">
+                    <span style="color: #fff; font-size: 1.2rem; font-family: 'Press Start 2P', cursive;">Gamer Fest</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#games-section">Juegos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Iniciar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div style="flex: 1; padding-right: 1rem;">
-            <h1>
-                Bienvenido a Gamer Fest
-            </h1>
-            <p>
-                Torneo universitario organizado por estudiantes de la UNIVERSIDAD ESPE sede LATACUNGA
-            </p>
-            <a class="btn-register-fixed" id="register-button" href="#">
-                Inscríbete Ya!
-            </a>
-        </div>
-        <div style="flex: 1; text-align: center;">
-            <img src="/images/logo.jpg" alt="Gamer Fest Visual">
-        </div>
-    </section>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div style="flex: 1; padding-right: 1rem;">
+                <h1>
+                    Bienvenido a Gamer Fest
+                </h1>
+                <p>
+                    Torneo universitario organizado por estudiantes de la UNIVERSIDAD ESPE sede LATACUNGA
+                </p>
+                <a class="btn-register-fixed" id="register-button" href="#">
+                    Inscríbete Ya!
+                </a>
+            </div>
+            <div style="flex: 1; text-align: center;">
+                <img src="/images/logo.jpg" alt="Gamer Fest Visual">
+            </div>
+        </section>
 
         <!-- Cards Section -->
         <section>
@@ -331,7 +335,18 @@
                 }
                 lastScroll = currentScroll;
             });
+
+            // Dynamic color animation
+            let hue = 0;
+            const root = document.documentElement;
+
+            function changeColor() {
+                hue = (hue + 0.1) % 360;
+                root.style.setProperty('--dynamic-color', `hsl(${hue}, 100%, 50%)`);
+                requestAnimationFrame(changeColor);
+            }
+
+            changeColor();
         </script>
     </body>
 </html>
-
