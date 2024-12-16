@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100vh; 
             margin: 0;
             font-family: 'Poppins', sans-serif;
         }
@@ -29,7 +29,7 @@
             overflow: hidden;
             background: rgba(0, 0, 0, 0.8);
             box-shadow: 0 4px 30px rgba(255, 0, 255, 0.7);
-            max-width: 600px;
+            max-width: 700px;
             width: 90%;
         }
 
