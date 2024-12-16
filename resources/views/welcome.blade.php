@@ -64,7 +64,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: #1a1a1a;
+                background-color: #000;
                 padding: 3rem;
                 border-top: 3px solid var(--dynamic-color);
             }
@@ -86,12 +86,14 @@
                 box-shadow: 0px 0px 15px var(--dynamic-color);
             }
             .cards {
+                background-color: #000;
                 display: flex;
                 justify-content: center;
                 gap: 1rem;
                 padding: 2rem;
             }
             .section-title {
+                background-color: #000;
                 text-align: center;
                 font-family: 'Press Start 2P', cursive;
                 color: var(--dynamic-color);
@@ -100,7 +102,7 @@
                 text-shadow: 0px 0px 8px var(--dynamic-color);
             }
             .card {
-                background: #1a1a1a;
+                background-color: #000;
                 border: 2px solid var(--dynamic-color);
                 border-radius: 15px;
                 text-align: center;
@@ -124,7 +126,7 @@
             }
             .games-section {
                 padding: 2rem;
-                background-color: #1a1a1a;
+                background-color: #000;
             }
             .games-section h2 {
                 text-align: center;
@@ -156,8 +158,8 @@
                 color: #fff;
             }
             .sponsors-section {
+                background-color: #000;
                 padding: 2rem;
-                background-color: #1a1a1a;
                 border-top: 3px solid var(--dynamic-color);
             }
             .sponsors-section h2 {
@@ -185,7 +187,7 @@
                 filter: grayscale(0%);
             }
             footer {
-                background-color: #0d0d0d;
+                background-color: #000;
                 color: #fff;
                 text-align: center;
                 padding: 1rem;
@@ -341,7 +343,7 @@
             const root = document.documentElement;
 
             function changeColor() {
-                hue = (hue + 0.1) % 360;
+                hue = (hue + 0.1 )% 360;
                 root.style.setProperty('--dynamic-color', `hsl(${hue}, 100%, 50%)`);
                 requestAnimationFrame(changeColor);
             }
