@@ -117,19 +117,20 @@
         <h2 class="titulo">REGISTRO</h2>
 
         <!-- Campos de entrada -->
-        <form action="#" method="POST" onsubmit="return validarContraseña()">
+        <form id="registroForm" action="{{ route('usuarios.store') }}" method="POST">
+            @csrf
             <div class="space-y-4">
-                <input type="text" id="nombres" placeholder="NOMBRES" class="input-container w-full p-2 rounded-md">
+                <input type="text" name="Nombres" id="nombres" placeholder="NOMBRES" class="input-container w-full p-2 rounded-md">
                 <p id="error-nombres" class="error-message hidden">Por favor, ingresa tus nombres.</p>
                 
-                <input type="text" id="apellidos" placeholder="APELLIDOS" class="input-container w-full p-2 rounded-md">
+                <input type="text" name="Apellidos" id="apellidos" placeholder="APELLIDOS" class="input-container w-full p-2 rounded-md">
                 <p id="error-apellidos" class="error-message hidden">Por favor, ingresa tus apellidos.</p>
 
-                <input type="text" id="celular" placeholder="CELULAR" class="input-container w-full p-2 rounded-md">
+                <input type="text" name="Celular" id="celular" placeholder="CELULAR" class="input-container w-full p-2 rounded-md">
                 <p id="error-celular" class="error-message hidden">El número de celular debe tener exactamente 10 dígitos.</p>
 
                 <!-- Selección de universidades -->
-                <select id="universidad" class="input-container w-full p-2 rounded-md">
+                <select name="Universidad" id="universidad" class="input-container w-full p-2 rounded-md">
                     <option value="" disabled selected>SELECCIONA TU UNIVERSIDAD</option>
                     <option value="ESPOL">Escuela Superior Politécnica del Litoral (ESPOL)</option>
                     <option value="UCE">Universidad Central del Ecuador (UCE)</option>
@@ -143,20 +144,14 @@
                 </select>
                 <p id="error-universidad" class="error-message hidden">Por favor, selecciona una universidad.</p>
 
-                <input type="text" id="correo" placeholder="CORREO" class="input-container w-full p-2 rounded-md">
+                <input type="email" name="CorreoElectronico" id="correo" placeholder="CORREO" class="input-container w-full p-2 rounded-md">
                 <p id="error-correo" class="error-message hidden">El correo ingresado no es válido.</p>
 
-                <input type="password" id="password" placeholder="CONTRASEÑA" class="input-container w-full p-2 rounded-md">
+                <input type="password" name="Contrasenia" id="password" placeholder="CONTRASEÑA" class="input-container w-full p-2 rounded-md">
                 <p id="error-password" class="error-message hidden">La contraseña debe tener al menos 8 caracteres.</p>
                 
-                <input type="password" id="confirm-password" placeholder="CONFIRMAR CONTRASEÑA" class="input-container w-full p-2 rounded-md">
+                <input type="password" name="Contrasenia_confirmation" id="confirm-password" placeholder="CONFIRMAR CONTRASEÑA" class="input-container w-full p-2 rounded-md">
                 <p id="error-confirm-password" class="error-message hidden">Las contraseñas no coinciden.</p>
-            </div>
-
-            <!-- Enlaces -->
-            <div class="mt-4 text-center">
-                <a href="/login" class="block hover:text-pink-400 canva-sans">Regresar al inicio de sesión</a>
-                <a href="/register" class="block hover:text-pink-400 canva-sans">Recargar registro</a>
             </div>
 
             <!-- Botón Ovalado -->
@@ -169,6 +164,25 @@
 
         <!-- Script de Validación -->
         <script>
+        
+        document.addEventListener('DOMContentLoaded', function () {
+        function validarFormulario() {
+            let isValid = true;
+
+            document.querySelectorAll('.error-message').forEach(msg => msg.classList.add('hidden'));
+
+            const nombres = document.getElementById('nombres').value.trim();
+            if (!nombres) {
+                document.getElementById('error-nombres').classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById('registroForm').submit();
+            }
+        }
+    });
+
         function validarFormulario() {
             let isValid = true;
 
@@ -232,6 +246,5 @@
             }
         }
     </script>
-
 </body>
 </html>
