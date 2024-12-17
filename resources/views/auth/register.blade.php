@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fuente Pixelada de Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         /* Fondo con imagen local */
         body {
@@ -154,6 +155,12 @@
                 <p id="error-confirm-password" class="error-message hidden">Las contraseñas no coinciden.</p>
             </div>
 
+            <!-- Enlaces -->
+            <div class="mt-4 text-center">
+                <a href="/login" class="block hover:text-pink-400 canva-sans">Regresar al inicio de sesión</a>
+                <a href="/register" class="block hover:text-pink-400 canva-sans">Recargar registro</a>
+            </div>
+
             <!-- Botón Ovalado -->
             <div class="mt-6 text-center">
                 <button type="button" class="neon-button w-full py-2 rounded-md" onclick="validarFormulario()">GUARDAR</button>
@@ -162,10 +169,12 @@
     </div>
 
 
+
+
         <!-- Script de Validación -->
         <script>
         
-        document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         function validarFormulario() {
             let isValid = true;
 

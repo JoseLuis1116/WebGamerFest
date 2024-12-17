@@ -8,12 +8,12 @@ use App\Models\Participante; // Importa el modelo Participante
 use App\Models\Role; // Importa el modelo Role si es necesario
 
 
+
 class Usuario extends Model
 {
     protected $table = 'Usuarios';
     protected $primaryKey = 'IDUsuario';
 
-    // Campos que se pueden llenar
     protected $fillable = [
         'Nombres',
         'Apellidos',
@@ -24,20 +24,24 @@ class Usuario extends Model
         'IDRol',
     ];
 
-    // Evento que copia el registro a la tabla Participantes
     protected static function booted()
     {
         static::created(function ($usuario) {
-            Participante::create([
-                'IDParticipante' => $usuario->IDUsuario, // Sincroniza IDUsuario con IDParticipante
-                'IDRol' => $usuario->IDRol,
-                'Nombres' => $usuario->Nombres,
-                'Apellidos' => $usuario->Apellidos,
-                'Celular' => $usuario->Celular,
-                'Universidad' => $usuario->Universidad,
-                'CorreoElectronico' => $usuario->CorreoElectronico,
-                'Contrasenia' => $usuario->Contrasenia,
-            ]);
+            // Validar si ya existe un participante con el mismo correo
+            $existeParticipante = Participante::where('CorreoElectronico', $usuario->CorreoElectronico)->exists();
+
+            if (!$existeParticipante) {
+                Participante::create([
+                    'IDParticipante' => $usuario->IDUsuario,
+                    'IDRol' => $usuario->IDRol,
+                    'Nombres' => $usuario->Nombres,
+                    'Apellidos' => $usuario->Apellidos,
+                    'Celular' => $usuario->Celular,
+                    'Universidad' => $usuario->Universidad,
+                    'CorreoElectronico' => $usuario->CorreoElectronico,
+                    'Contrasenia' => $usuario->Contrasenia,
+                ]);
+            }
         });
     }
 }
