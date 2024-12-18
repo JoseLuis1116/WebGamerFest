@@ -11,7 +11,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Rutas para el coordinador
+Route::get('/coordinador', function () {
+    return view('usuarios.coordinador.coordinador');
+})->name('coordinador');
+
+// Ruta para el tesorero
+Route::get('/tesorero', function () {
+    return view('usuarios.tesorero.tesorero');
+})->name('tesorero');
+
 // Rutas de usuarios
+Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
 Route::post('/usuarios/store', [UsuarioController::class, 'store'])->name('usuarios.store');
 
 // Rutas de administradores (resource)
