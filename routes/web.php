@@ -2,19 +2,44 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\DashboardController;
 
+// Ruta de bienvenida
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Rutas de usuarios
 Route::post('/usuarios/store', [UsuarioController::class, 'store'])->name('usuarios.store');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+// Rutas de administradores (resource)
+Route::resource('administradores', AdministradorController::class);
+
+// Ruta para el inicio de sesión
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+
+// Middleware de autenticación para proteger rutas
+Route::middleware(['auth'])->group(function () {
+
+    // Ruta de redirección central para los dashboards
+    Route::get('/dashboard', [DashboardController::class, 'handle'])->name('dashboard');
+
+    // Rutas específicas para cada rol
+    Route::get('/admin/dashboard', function () {
+        return view('livewire.admin-dashboard');
+    })->name('admin.dashboard');
+
+    Route::get('/tesoreria/dashboard', function () {
+        return view('livewire.tesoreria-dashboard');
+    })->name('tesoreria.dashboard');
+
+    Route::get('/coordinador/dashboard', function () {
+        return view('livewire.coordinador-dashboard');
+    })->name('coordinador.dashboard');
+
+    Route::get('/participante/dashboard', function () {
+        return view('livewire.participante-dashboard');
+    })->name('participante.dashboard');
 });
