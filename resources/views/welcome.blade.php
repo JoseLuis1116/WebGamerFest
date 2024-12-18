@@ -343,7 +343,7 @@
             const root = document.documentElement;
 
             function changeColor() {
-                hue = (hue + 0.1 )% 360;
+                hue = (hue + 0.3 )% 360;
                 root.style.setProperty('--dynamic-color', `hsl(${hue}, 100%, 50%)`);
                 requestAnimationFrame(changeColor);
             }
