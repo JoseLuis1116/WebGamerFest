@@ -4,253 +4,247 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <!-- TailwindCSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fuente Pixelada de Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        /* Fondo con imagen local */
         body {
-            position: relative;
-            background-image: url('{{ asset('images/fondo.jpg') }}');
-            background-size: auto 100%;
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-color: black;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Overlay oscuro */
-        body::before {
-            content: '';
+        .registro-container {
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 30px rgba(255, 255, 0, 0.7);
+            max-width: 400px;
+            min-height: 100px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .registro-container::before {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            right: 0;
+            bottom: 0;
+            background: url('{{ asset("images/fondo.jpg") }}') no-repeat center center;
+            background-size: cover;
+            filter: blur(5px);
+            opacity: 0.9;
             z-index: -1;
         }
 
-        /* Contenedores de texto con brillo */
-        .input-container {
-            background-color: #3d0066;
-            border: 2px solid #ff00ff;
-            box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-            color: #7fffd4;
-            text-align: center;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
         }
 
-        .input-container:focus {
+        .form-container h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ffff00;
+            text-shadow: 0px 0px 5px #ffff00;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding-left: 10px;
+            width: 100%;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #ffff00;
+            background-color: #000;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
             outline: none;
-            box-shadow: 0 0 15px #ff00ff, 0 0 25px #ff00ff;
-            border-color: #ff00ff;
+            box-sizing: border-box;
         }
 
-        /* Placeholder */
-        .input-container::placeholder {
-            color: #7fffd4;
-            font-family: 'Press Start 2P', cursive;
-            text-align: center;
+        .input-group input::placeholder,
+        .input-group select::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Texto en Canva Sans */
-        .canva-sans {
-            font-family: 'Canva Sans', sans-serif;
-            font-weight: 900; /* Negrilla más intensa */
-            font-style: italic;
-            font-size: 0.875rem;
+        .form-container button {
+            padding: 10px 15px;
+            width: 100%;
+            max-width: 350px;
+            background: #ffff00;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            text-shadow: 0px 0px 5px #000;
+            transition: background 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background: #ffeb3b;
+        }
+
+        .form-container a {
+            color: #ffff00;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .form-container a:hover {
             color: #ffffff;
-        }
-
-
-        /* Neon Borders */
-        .neon-border {
-            border: 2px solid #ff00ff;
-            box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-        }
-
-        /* Botón Ovalado con Neón */
-        .neon-button {
-            background-color: #240046;
-            border: 3px solid #03f8fc;
-            box-shadow: 0 0 10px #03f8fc, 0 0 20px #03f8fc;
-            border-radius: 50px;
-            padding: 12px 30px;
-            color: white;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.3s ease;
-            font-family: 'Press Start 2P', cursive;
-        }
-
-        .neon-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 15px #03f8fc, 0 0 25px #03f8fc;
-        }
-
-        /* Título REGISTRO con CSS puro */
-        .titulo {
-            text-align: center; /* Centrado */
-            font-size: 1.75rem; /* Tamaño de fuente */
-            color: #ffffff; /* Color blanco */
-            text-shadow: 0 0 8px #ff00ff, 0 0 12px #ff00ff; /* Sombra neón morado */
-            font-family: 'Press Start 2P', cursive; /* Fuente pixelada */
-            margin-bottom: 1.5rem; /* Espaciado inferior */
+            text-decoration: underline;
         }
 
         .error-message {
-            color: #ffffff;
+            color: #ff0000;
             font-size: 12px;
             margin-top: 0.25rem;
-            font-weight: 900; /* Negrilla más intensa */
+            text-align: left;
+            display: none;
         }
 
+        .error-visible {
+            display: block;
+        }
+
+        .links-container {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center">
-    <div class="relative z-10 w-96 p-8 neon-border rounded-lg" style="background: rgba(255, 105, 180, 0.2);">
-        <!-- Título -->
-        <h2 class="titulo">REGISTRO</h2>
+<body>
+    <div class="registro-container">
+        <div class="form-container">
+            <h2>REGISTRO</h2>
+            <form id="registroForm" action="{{ route('usuarios.store') }}" method="POST">
+                @csrf
+                <div class="input-group">
+                    <input type="text" name="Nombres" id="nombres" placeholder="NOMBRES">
+                    <p id="error-nombres" class="error-message">Por favor, ingresa tus nombres.</p>
+                </div>
 
-        <!-- Campos de entrada -->
-        <form id="registroForm" action="{{ route('usuarios.store') }}" method="POST">
-            @csrf
-            <div class="space-y-4">
-                <input type="text" name="Nombres" id="nombres" placeholder="NOMBRES" class="input-container w-full p-2 rounded-md">
-                <p id="error-nombres" class="error-message hidden">Por favor, ingresa tus nombres.</p>
-                
-                <input type="text" name="Apellidos" id="apellidos" placeholder="APELLIDOS" class="input-container w-full p-2 rounded-md">
-                <p id="error-apellidos" class="error-message hidden">Por favor, ingresa tus apellidos.</p>
+                <div class="input-group">
+                    <input type="text" name="Apellidos" id="apellidos" placeholder="APELLIDOS">
+                    <p id="error-apellidos" class="error-message">Por favor, ingresa tus apellidos.</p>
+                </div>
 
-                <input type="text" name="Celular" id="celular" placeholder="CELULAR" class="input-container w-full p-2 rounded-md">
-                <p id="error-celular" class="error-message hidden">El número de celular debe tener exactamente 10 dígitos.</p>
+                <div class="input-group">
+                    <input type="text" name="Celular" id="celular" placeholder="CELULAR">
+                    <p id="error-celular" class="error-message">El número de celular debe tener exactamente 10 dígitos.</p>
+                </div>
 
-                <!-- Selección de universidades -->
-                <select name="Universidad" id="universidad" class="input-container w-full p-2 rounded-md">
-                    <option value="" disabled selected>SELECCIONA TU UNIVERSIDAD</option>
-                    <option value="ESPOL">Escuela Superior Politécnica del Litoral (ESPOL)</option>
-                    <option value="UCE">Universidad Central del Ecuador (UCE)</option>
-                    <option value="UTPL">Universidad Técnica Particular de Loja (UTPL)</option>
-                    <option value="PUCE">Pontificia Universidad Católica del Ecuador (PUCE)</option>
-                    <option value="UDLA">Universidad de Las Américas (UDLA)</option>
-                    <option value="UCSG">Universidad Católica de Santiago de Guayaquil (UCSG)</option>
-                    <option value="UTN">Universidad Técnica del Norte (UTN)</option>
-                    <option value="UNL">Universidad Nacional de Loja (UNL)</option>
-                    <option value="ESPE">Universidad de las Fuerzas Armadas (ESPE)</option>
-                </select>
-                <p id="error-universidad" class="error-message hidden">Por favor, selecciona una universidad.</p>
+                <div class="input-group">
+                    <select name="Universidad" id="universidad">
+                        <option value="" disabled selected>SELECCIONA TU UNIVERSIDAD</option>
+                        <option value="ESPOL">Escuela Superior Politécnica del Litoral (ESPOL)</option>
+                        <option value="UCE">Universidad Central del Ecuador (UCE)</option>
+                        <option value="UTPL">Universidad Técnica Particular de Loja (UTPL)</option>
+                        <option value="PUCE">Pontificia Universidad Católica del Ecuador (PUCE)</option>
+                        <option value="UDLA">Universidad de Las Américas (UDLA)</option>
+                        <option value="UCSG">Universidad Católica de Santiago de Guayaquil (UCSG)</option>
+                        <option value="UTN">Universidad Técnica del Norte (UTN)</option>
+                        <option value="UNL">Universidad Nacional de Loja (UNL)</option>
+                        <option value="ESPE">Universidad de las Fuerzas Armadas (ESPE)</option>
+                    </select>
+                    <p id="error-universidad" class="error-message">Por favor, selecciona una universidad.</p>
+                </div>
 
-                <input type="email" name="CorreoElectronico" id="correo" placeholder="CORREO" class="input-container w-full p-2 rounded-md">
-                <p id="error-correo" class="error-message hidden">El correo ingresado no es válido.</p>
+                <div class="input-group">
+                    <input type="email" name="CorreoElectronico" id="correo" placeholder="CORREO">
+                    <p id="error-correo" class="error-message">El correo ingresado no es válido.</p>
+                </div>
 
-                <input type="password" name="Contrasenia" id="password" placeholder="CONTRASEÑA" class="input-container w-full p-2 rounded-md">
-                <p id="error-password" class="error-message hidden">La contraseña debe tener al menos 8 caracteres.</p>
-                
-                <input type="password" name="Contrasenia_confirmation" id="confirm-password" placeholder="CONFIRMAR CONTRASEÑA" class="input-container w-full p-2 rounded-md">
-                <p id="error-confirm-password" class="error-message hidden">Las contraseñas no coinciden.</p>
-            </div>
+                <div class="input-group">
+                    <input type="password" name="Contrasenia" id="password" placeholder="CONTRASEÑA">
+                    <p id="error-password" class="error-message">La contraseña debe tener al menos 8 caracteres.</p>
+                </div>
 
-            <!-- Enlaces -->
-            <div class="mt-4 text-center">
-                <a href="/login" class="block hover:text-pink-400 canva-sans">Regresar al inicio de sesión</a>
-                <a href="/register" class="block hover:text-pink-400 canva-sans">Recargar registro</a>
-            </div>
+                <div class="input-group">
+                    <input type="password" name="Contrasenia_confirmation" id="confirm-password" placeholder="CONFIRMAR CONTRASEÑA">
+                    <p id="error-confirm-password" class="error-message">Las contraseñas no coinciden.</p>
+                </div>
 
-            <!-- Botón Ovalado -->
-            <div class="mt-6 text-center">
-                <button type="button" class="neon-button w-full py-2 rounded-md" onclick="validarFormulario()">GUARDAR</button>
-            </div>
-        </form>
+                <button type="button" onclick="validarFormulario()">GUARDAR</button>
+
+                <div class="links-container">
+                    <a href="/login">Regresar al inicio de sesión</a><br>
+                    <a href="/register">Recargar registro</a>
+                </div>
+            </form>
+        </div>
     </div>
 
-
-
-
-        <!-- Script de Validación -->
-        <script>
-        
-    document.addEventListener('DOMContentLoaded', function () {
+    <script>
         function validarFormulario() {
             let isValid = true;
-
-            document.querySelectorAll('.error-message').forEach(msg => msg.classList.add('hidden'));
+            document.querySelectorAll('.error-message').forEach(msg => msg.classList.remove('error-visible'));
 
             const nombres = document.getElementById('nombres').value.trim();
             if (!nombres) {
-                document.getElementById('error-nombres').classList.remove('hidden');
+                document.getElementById('error-nombres').classList.add('error-visible');
                 isValid = false;
             }
 
-            if (isValid) {
-                document.getElementById('registroForm').submit();
-            }
-        }
-    });
-
-        function validarFormulario() {
-            let isValid = true;
-
-            // Limpiar mensajes de error previos
-            document.querySelectorAll('.error-message').forEach(msg => msg.classList.add('hidden'));
-
-            // Nombres
-            const nombres = document.getElementById('nombres').value.trim();
-            if (!nombres) {
-                document.getElementById('error-nombres').classList.remove('hidden');
-                isValid = false;
-            }
-
-            // Apellidos
             const apellidos = document.getElementById('apellidos').value.trim();
             if (!apellidos) {
-                document.getElementById('error-apellidos').classList.remove('hidden');
+                document.getElementById('error-apellidos').classList.add('error-visible');
                 isValid = false;
             }
 
-            // Correo
             const correo = document.getElementById('correo').value.trim();
             const correoRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!correoRegex.test(correo)) {
-                document.getElementById('error-correo').classList.remove('hidden');
+                document.getElementById('error-correo').classList.add('error-visible');
                 isValid = false;
             }
 
-            // Celular
             const celular = document.getElementById('celular').value.trim();
             if (!/^\d{10}$/.test(celular)) {
-                document.getElementById('error-celular').classList.remove('hidden');
+                document.getElementById('error-celular').classList.add('error-visible');
                 isValid = false;
             }
 
-            // Universidad
             const universidad = document.getElementById('universidad').value;
             if (!universidad) {
-                document.getElementById('error-universidad').classList.remove('hidden');
+                document.getElementById('error-universidad').classList.add('error-visible');
                 isValid = false;
             }
 
-            // Contraseña
             const password = document.getElementById('password').value;
             if (password.length < 8) {
-                document.getElementById('error-password').classList.remove('hidden');
+                document.getElementById('error-password').classList.add('error-visible');
                 isValid = false;
             }
 
-            // Confirmar Contraseña
             const confirmPassword = document.getElementById('confirm-password').value;
             if (password !== confirmPassword) {
-                document.getElementById('error-confirm-password').classList.remove('hidden');
+                document.getElementById('error-confirm-password').classList.add('error-visible');
                 isValid = false;
             }
 
-            // Si todo es válido, enviar formulario
             if (isValid) {
-                alert('Formulario enviado correctamente.');
                 document.getElementById('registroForm').submit();
             }
         }
