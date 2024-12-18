@@ -19,13 +19,13 @@
         }
 
         .registro-container {
-            padding: 20px;
+            padding: 10px;
             border-radius: 15px;
             position: relative;
             overflow: hidden;
             background: rgba(0, 0, 0, 0.8);
             box-shadow: 0 4px 30px rgba(255, 255, 0, 0.7);
-            max-width: 400px;
+            max-width: 450px;
             min-height: 100px;
             width: 90%;
             text-align: center;
@@ -55,7 +55,7 @@
 
         .form-container h2 {
             font-size: 24px;
-            margin-bottom: 15px;
+            margin-bottom: 3px;
             color: #ffff00;
             text-shadow: 0px 0px 5px #ffff00;
         }
