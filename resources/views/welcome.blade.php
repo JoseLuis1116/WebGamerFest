@@ -237,7 +237,7 @@
                 <p>
                     Torneo universitario organizado por estudiantes de la UNIVERSIDAD ESPE sede LATACUNGA
                 </p>
-                <a class="btn-register-fixed" id="register-button" href="#">
+                <a class="btn-register-fixed" id="register-button" href="/register">
                     Inscríbete Ya!
                 </a>
             </div>
