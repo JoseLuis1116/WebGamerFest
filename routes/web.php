@@ -26,8 +26,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas específicas para cada rol
     Route::get('/admin/dashboard', function () {
-        return view('usuarios.admin.admin'); // Cambiar si necesitas una vista específica
-    })->name('admin.dashboard');
+        return view('usuarios.administrador.administrador'); // Vista correcta
+    })->name('admin.dashboard');    
 
     Route::get('/tesoreria/dashboard', function () {
         return view('usuarios.tesorero.tesorero'); // Ruta correcta
