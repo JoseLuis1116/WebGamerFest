@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('Inscripciones', function (Blueprint $table) {
             $table->id('IDInscripcion');
-            $table->foreignId('IDParticipante')->constrained('Participantes', 'IDParticipante')->onDelete('cascade');
+            $table->foreignId('IDUsuario')->constrained('usuarios')->onDelete('cascade'); // Relación con users
             $table->foreignId('IDJuego')->constrained('Juegos', 'IDJuego')->onDelete('cascade');
             $table->dateTime('FechaInscripcion');
             $table->dateTime('FechaPago')->nullable();

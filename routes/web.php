@@ -9,29 +9,16 @@ use App\Http\Controllers\Auth\DashboardController;
 // Ruta de bienvenida
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-// Rutas para el coordinador
-Route::get('/coordinador', function () {
-    return view('usuarios.coordinador.coordinador');
-})->name('coordinador');
+// Rutas de registro de usuario
+Route::get('/register', [UsuarioController::class, 'create'])->name('register'); // Mostrar formulario de registro
+Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store'); // Guardar datos del usuario
 
-// Ruta para el tesorero
-Route::get('/tesorero', function () {
-    return view('usuarios.tesorero.tesorero');
-})->name('tesorero');
-
-// Rutas de usuarios
-Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
-Route::post('/usuarios/store', [UsuarioController::class, 'store'])->name('usuarios.store');
-
-// Rutas de administradores (resource)
-Route::resource('administradores', AdministradorController::class);
-
-// Ruta para el inicio de sesión
+// Ruta para el inicio de sesión (manteniendo Fortify)
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 
-// Middleware de autenticación para proteger rutas
+// Rutas protegidas con middleware de autenticación
 Route::middleware(['auth'])->group(function () {
 
     // Ruta de redirección central para los dashboards
@@ -39,18 +26,21 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas específicas para cada rol
     Route::get('/admin/dashboard', function () {
-        return view('livewire.admin-dashboard');
+        return view('usuarios.admin.admin'); // Cambiar si necesitas una vista específica
     })->name('admin.dashboard');
 
     Route::get('/tesoreria/dashboard', function () {
-        return view('livewire.tesoreria-dashboard');
+        return view('usuarios.tesorero.tesorero'); // Ruta correcta
     })->name('tesoreria.dashboard');
 
     Route::get('/coordinador/dashboard', function () {
-        return view('livewire.coordinador-dashboard');
+        return view('usuarios.coordinador.coordinador'); // Ruta correcta
     })->name('coordinador.dashboard');
 
     Route::get('/participante/dashboard', function () {
-        return view('livewire.participante-dashboard');
+        return view('usuarios.participantes.participantes'); // Ruta correcta
     })->name('participante.dashboard');
 });
+
+// Rutas para administradores (resource)
+Route::resource('administradores', AdministradorController::class)->middleware('auth');

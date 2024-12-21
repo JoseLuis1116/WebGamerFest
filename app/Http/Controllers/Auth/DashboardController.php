@@ -12,8 +12,19 @@ class DashboardController extends Controller
      */
     public function handle()
     {
-        $role = Auth::user()->rol->NombreRol;
+        // Obtener el usuario autenticado
+        $user = Auth::user();
 
+        // Verificar si el usuario tiene un rol asignado
+        if (!$user || !$user->rol) {
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['error' => 'El usuario no tiene un rol asignado. Contacte al administrador.']);
+        }
+
+        // Obtener el nombre del rol
+        $role = $user->rol->NombreRol;
+
+        // Redirigir según el rol
         switch ($role) {
             case 'Administrador':
                 return redirect()->route('admin.dashboard');

@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('integrantes_grupo', function (Blueprint $table) {
-            $table->id('id_integrante');
-            $table->foreignId('id_grupo')->constrained('Grupos', 'IDGrupo')->onDelete('restrict');
-            $table->foreignId('id_participante')->constrained('Participantes', 'IDParticipante')->onDelete('restrict');
+            $table->id('id_integrante'); // Clave primaria
+            $table->foreignId('id_grupo')->constrained('Grupos', 'IDGrupo')->onDelete('restrict'); // Referencia corregida
+            $table->foreignId('id_usuario')->constrained('usuarios')->onDelete('restrict'); // Referencia a users
             $table->timestamps();
-        
+
             // Restricción única para evitar duplicados
-            $table->unique(['id_grupo', 'id_participante']);
-        });        
+            $table->unique(['id_grupo', 'id_usuario']);
+        });
     }
 
     /**
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('IntegrantesGrupo');
+        Schema::dropIfExists('integrantes_grupo');
     }
 };

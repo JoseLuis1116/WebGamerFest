@@ -1,47 +1,33 @@
 <?php
 
-namespace App\Models; // Define el namespace correctamente
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model; // Importa la clase base Model
-use Illuminate\Database\Eloquent\Factories\HasFactory; // Opcional, si usas factories
-use App\Models\Participante; // Importa el modelo Participante
-use App\Models\Role; // Importa el modelo Role si es necesario
-
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Usuario extends Model
 {
-    protected $table = 'Usuarios';
-    protected $primaryKey = 'IDUsuario';
+    use HasFactory;
 
+    // Nombre correcto de la tabla en la base de datos
+    protected $table = 'usuarios'; 
+    protected $primaryKey = 'id'; // Clave primaria personalizada
+
+    // Campos que se pueden llenar de forma masiva
     protected $fillable = [
-        'Nombres',
-        'Apellidos',
-        'Universidad',
-        'Celular',
-        'CorreoElectronico',
-        'Contrasenia',
-        'IDRol',
+        'name',            // Nombre completo
+        'email',           // Correo electrónico
+        'password',        // Contraseña encriptada
+        'Celular',         // Celular del usuario
+        'Universidad',     // Universidad del usuario
+        'IDRol',           // ID del rol asignado
     ];
 
-    protected static function booted()
+    /**
+     * Relación con el modelo Role (opcional si tienes la tabla roles).
+     */
+    public function rol()
     {
-        static::created(function ($usuario) {
-            // Validar si ya existe un participante con el mismo correo
-            $existeParticipante = Participante::where('CorreoElectronico', $usuario->CorreoElectronico)->exists();
-
-            if (!$existeParticipante) {
-                Participante::create([
-                    'IDParticipante' => $usuario->IDUsuario,
-                    'IDRol' => $usuario->IDRol,
-                    'Nombres' => $usuario->Nombres,
-                    'Apellidos' => $usuario->Apellidos,
-                    'Celular' => $usuario->Celular,
-                    'Universidad' => $usuario->Universidad,
-                    'CorreoElectronico' => $usuario->CorreoElectronico,
-                    'Contrasenia' => $usuario->Contrasenia,
-                ]);
-            }
-        });
+        return $this->belongsTo(Role::class, 'IDRol', 'IDRol');
     }
 }
