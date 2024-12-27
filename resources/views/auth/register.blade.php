@@ -140,6 +140,7 @@
             <div class="input-group">
                 <select name="Universidad">
                     <option value="" disabled selected>Selecciona tu universidad</option>
+                    <option value="ESPE" {{ old('Universidad') == 'ESPE' ? 'selected' : '' }}>ESPE</option>
                     <option value="ESPOL" {{ old('Universidad') == 'ESPOL' ? 'selected' : '' }}>ESPOL</option>
                     <option value="UCE" {{ old('Universidad') == 'UCE' ? 'selected' : '' }}>UCE</option>
                     <option value="UTPL" {{ old('Universidad') == 'UTPL' ? 'selected' : '' }}>UTPL</option>
