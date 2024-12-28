@@ -259,6 +259,71 @@
             outline: 2px solid #FFC107;
             outline-offset: 2px;
         }
+
+        form {
+            background: #2a2a2a;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 16px;
+        }
+
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #FFC107;
+            text-shadow: 0 0 5px #FFC107, 0 0 10px #FFC107;
+        }
+
+        form input[type="text"],
+        form textarea,
+        form select,
+        form input[type="file"] {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #6A1B9A;
+            border-radius: 5px;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        form input[type="text"]:focus,
+        form textarea:focus,
+        form select:focus,
+        form input[type="file"]:focus {
+            border: 1px solid #FFC107;
+            outline: none;
+        }
+
+        form button[type="submit"],
+        form button[type="reset"] {
+            background: #6A1B9A;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px;
+        }
+
+        form button[type="submit"]:hover,
+        form button[type="reset"]:hover {
+            background: #9C27B0;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -340,7 +405,93 @@
                     content.innerHTML = '<h3>Ver Reportes</h3><p>Sección para ver reportes financieros.</p>';
                     break;
                 case 'agregar-juego':
-                    content.innerHTML = '<h3>Agregar Juego</h3><p>Formulario para agregar un nuevo juego.</p>';
+                    content.innerHTML = `
+                        <h3>Agregar Juego</h3>
+                        <p>Formulario para agregar un nuevo juego.</p>
+                        <form id="form-juego" action="/guardar-juego" method="POST" enctype="multipart/form-data">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+
+                            <!-- Campo para Nombre del Juego -->
+                            <div>
+                                <label for="NombreJuego">Nombre del Juego:</label>
+                                <input type="text" id="NombreJuego" name="NombreJuego" required maxlength="255" placeholder="Ingrese el nombre del juego">
+                            </div>
+                            
+                            <!-- Campo para Descripción del Juego -->
+                            <div>
+                                <label for="DescripcionJuego">Descripción del Juego:</label>
+                                <textarea id="DescripcionJuego" name="DescripcionJuego" placeholder="Ingrese una descripción del juego"></textarea>
+                            </div>
+                            
+                            <!-- Campo para ID de Categoría -->
+                            <div>
+                                <label for="IDCategoria">Categoría:</label>
+                                <select id="IDCategoria" name="IDCategoria" required>
+                                    <option value="" disabled selected>Seleccione una categoría</option>
+                                    <option value="1">Individual</option>
+                                    <option value="2">Grupal</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Campo para ID de Modalidad -->
+                            <div>
+                                <label for="IDModalidad">Modalidad:</label>
+                                <select id="IDModalidad" name="IDModalidad" required>
+                                    <option value="" disabled selected>Seleccione una modalidad</option>
+                                    <option value="1">Presencial</option>
+                                    <option value="2">Virtual</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Campo para Imagen del Juego -->
+                            <div>
+                                <label for="ImagenJuego">Imagen del Juego:</label>
+                                <input type="file" id="ImagenJuego" name="ImagenJuego" accept="image/*">
+                            </div>
+
+                            <!-- Contenedor para la notificación -->
+                            <div id="notification" style="display: none; position: fixed; top: 20px; right: 20px; background: #28a745; color: white; padding: 15px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); z-index: 1000;">
+                                <span id="notification-message"></span>
+                            </div>
+
+                            <!-- Botones para enviar o cancelar -->
+                            <div>
+                                <button type="submit">Guardar</button>
+                                <button type="reset">Limpiar</button>
+                            </div>
+                        </form>
+                    `;
+
+                        document.querySelector('#form-juego').addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        const formData = new FormData(this);
+
+                        fetch('/guardar-juego', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Mostrar notificación
+                            const notification = document.getElementById('notification');
+                            const message = document.getElementById('notification-message');
+                            message.textContent = data.message; // Mensaje del backend
+                            notification.style.display = 'block';
+
+                            // Ocultar notificación después de 5 segundos
+                            setTimeout(() => {
+                                notification.style.display = 'none';
+                            }, 5000);
+
+                            // Actualizar contenido dinámico si es necesario
+                        })
+                        .catch(error => console.error('Error:', error));
+                    });
+
                     break;
                 case 'editar-juego':
                     content.innerHTML = '<h3>Editar Juego</h3><p>Sección para editar juegos existentes.</p>';
