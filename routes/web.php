@@ -15,9 +15,11 @@ Route::get('/', function () {
 // Rutas de registro de usuario
 Route::get('/register', [UsuarioController::class, 'create'])->name('register'); // Mostrar formulario de registro
 Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store'); // Guardar datos del usuario
-Route::post('/guardar-juego', [JuegoController::class, 'store'])->name('juegos.store'); // Guardar juego
 
-//Ruta parar el contralador de juegos
+// Ruta para guardar juegos
+Route::post('/guardar-juego', [JuegoController::class, 'store'])->name('juegos.store');
+
+// Ruta para el controlador de juegos
 Route::resource('juegos', JuegoController::class);
 
 // Ruta para el inicio de sesión (manteniendo Fortify)
@@ -31,19 +33,27 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas específicas para cada rol
     Route::get('/admin/dashboard', function () {
-        return view('usuarios.administrador.administrador'); // Vista correcta
-    })->name('admin.dashboard');    
+        return view('usuarios.administrador.administrador', [
+            'user' => auth()->user(),
+        ]); // Vista correcta con datos dinámicos
+    })->name('admin.dashboard');
 
     Route::get('/tesoreria/dashboard', function () {
-        return view('usuarios.tesorero.tesorero'); // Ruta correcta
+        return view('usuarios.tesorero.tesorero', [
+            'user' => auth()->user(),
+        ]); // Vista correcta con datos dinámicos
     })->name('tesoreria.dashboard');
 
     Route::get('/coordinador/dashboard', function () {
-        return view('usuarios.coordinador.coordinador'); // Ruta correcta
+        return view('usuarios.coordinador.coordinador', [
+            'user' => auth()->user(),
+        ]); // Vista correcta con datos dinámicos
     })->name('coordinador.dashboard');
 
     Route::get('/participante/dashboard', function () {
-        return view('usuarios.participantes.participantes'); // Ruta correcta
+        return view('usuarios.participantes.participantes', [
+            'user' => auth()->user(),
+        ]); // Vista correcta con datos dinámicos
     })->name('participante.dashboard');
 });
 
