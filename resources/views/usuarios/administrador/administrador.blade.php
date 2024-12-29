@@ -364,7 +364,8 @@
         <main class="main-panel expanded" id="main-panel">
             <header class="header" role="banner">
                 <h2>DASHBOARD ADMINISTRADOR</h2>
-                <span>JUAN PÉREZ</span>
+                <!-- Carga dinámica del nombre -->
+                <p>Bienvenido, {{ $user->name }}.</p>
             </header>
             <div class="content" id="content">
                 <h3>Bienvenido al panel de administrador</h3>

@@ -18,25 +18,18 @@ class DashboardController extends Controller
         // Verificar si el usuario tiene un rol asignado
         if (!$user || !$user->rol) {
             Auth::logout();
-            return redirect()->route('login')->withErrors(['error' => 'El usuario no tiene un rol asignado. Contacte al administrador.']);
+            return redirect('/login')->withErrors('No tienes un rol asignado.');
         }
 
-        // Obtener el nombre del rol
-        $role = $user->rol->NombreRol;
+        // Redirigir al dashboard correspondiente con el nombre y rol del usuario
+        $dashboardView = match ($user->rol) {
+            'administrador' => 'admin.dashboard',
+            'participante' => 'participant.dashboard',
+            'tesoreria' => 'finance.dashboard',
+            'coordinador' => 'coordinator.dashboard',
+            default => 'home',
+        };
 
-        // Redirigir según el rol
-        switch ($role) {
-            case 'Administrador':
-                return redirect()->route('admin.dashboard');
-            case 'Tesoreria':
-                return redirect()->route('tesoreria.dashboard');
-            case 'Coordinador':
-                return redirect()->route('coordinador.dashboard');
-            case 'Participante':
-                return redirect()->route('participante.dashboard');
-            default:
-                Auth::logout();
-                return redirect()->route('login')->withErrors(['error' => 'Rol no autorizado.']);
-        }
+        return view($dashboardView, ['user' => $user]);
     }
 }
