@@ -416,13 +416,13 @@
                                 <label for="NombreJuego">Nombre del Juego:</label>
                                 <input type="text" id="NombreJuego" name="NombreJuego" required maxlength="255" placeholder="Ingrese el nombre del juego">
                             </div>
-                            
+
                             <!-- Campo para Descripción del Juego -->
                             <div>
                                 <label for="DescripcionJuego">Descripción del Juego:</label>
                                 <textarea id="DescripcionJuego" name="DescripcionJuego" placeholder="Ingrese una descripción del juego"></textarea>
                             </div>
-                            
+
                             <!-- Campo para ID de Categoría -->
                             <div>
                                 <label for="IDCategoria">Categoría:</label>
@@ -432,7 +432,7 @@
                                     <option value="2">Grupal</option>
                                 </select>
                             </div>
-                            
+
                             <!-- Campo para ID de Modalidad -->
                             <div>
                                 <label for="IDModalidad">Modalidad:</label>
@@ -442,7 +442,7 @@
                                     <option value="2">Virtual</option>
                                 </select>
                             </div>
-                            
+
                             <!-- Campo para Imagen del Juego -->
                             <div>
                                 <label for="ImagenJuego">Imagen del Juego:</label>
@@ -493,8 +493,92 @@
                     });
 
                     break;
-                case 'editar-juego':
-                    content.innerHTML = '<h3>Editar Juego</h3><p>Sección para editar juegos existentes.</p>';
+                    case 'editar-juego':
+                    content.innerHTML = `
+                        <h3>Modificar Juego</h3>
+                        <form id="form-editar-juego" action="/juegos/{juego_id}" method="POST" enctype="multipart/form-data">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+                            <input type="hidden" name="_method" value="PUT">
+
+                            <!-- Campo para Nombre del Juego -->
+                            <div>
+                                <label for="NombreJuego">Nombre del Juego:</label>
+                                <input type="text" id="NombreJuego" name="NombreJuego" value="" required maxlength="255" placeholder="Ingrese el nombre del juego">
+                            </div>
+
+                            <!-- Campo para Descripción del Juego -->
+                            <div>
+                                <label for="DescripcionJuego">Descripción del Juego:</label>
+                                <textarea id="DescripcionJuego" name="DescripcionJuego" placeholder="Ingrese una descripción del juego"></textarea>
+                            </div>
+
+                            <!-- Campo para ID de Categoría -->
+                            <div>
+                                <label for="IDCategoria">Categoría:</label>
+                                <select id="IDCategoria" name="IDCategoria" required>
+                                    <option value="1">Individual</option>
+                                    <option value="2">Grupal</option>
+                                </select>
+                            </div>
+
+                            <!-- Campo para ID de Modalidad -->
+                            <div>
+                                <label for="IDModalidad">Modalidad:</label>
+                                <select id="IDModalidad" name="IDModalidad" required>
+                                    <option value="1">Presencial</option>
+                                    <option value="2">Virtual</option>
+                                </select>
+                            </div>
+
+                            <!-- Campo para Imagen del Juego -->
+                            <div>
+                                <label for="ImagenJuego">Imagen del Juego:</label>
+                                <input type="file" id="ImagenJuego" name="ImagenJuego" accept="image/*">
+                            </div>
+
+                            <!-- Botones para enviar o cancelar -->
+                            <div>
+                                <button type="submit">Guardar Cambios</button>
+                                <button type="reset">Limpiar</button>
+                            </div>
+                            <ul>
+                                <li><a href="#" onclick="loadEditForm(1)">Editar Juego 1</a></li>
+                                <li><a href="#" onclick="loadEditForm(2)">Editar Juego 2</a></li>
+                            </ul>
+                        </form>
+                    `;
+                        document.querySelector('#form-editar-juego').addEventListener('submit', function (e) {
+                            e.preventDefault();
+
+                            const formData = new FormData(this);
+
+                            fetch('/juegos/{juego_id}', {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                alert(data.message);
+                                // Actualiza el contenido dinámico si es necesario
+                            })
+                            .catch(error => console.error('Error:', error));
+                        });
+                        function loadEditForm(juegoId) {
+                        fetch(`/api/juegos/${juegoId}`)
+                            .then(response => response.json())
+                            .then(juego => {
+                                document.getElementById('NombreJuego').value = juego.NombreJuego;
+                                document.getElementById('DescripcionJuego').value = juego.DescripcionJuego;
+                                document.getElementById('IDCategoria').value = juego.IDCategoria;
+                                document.getElementById('IDModalidad').value = juego.IDModalidad;
+                            })
+                            .catch(error => console.error('Error al cargar los datos del juego:', error));
+                    }
+
+
                     break;
                 case 'eliminar-juego':
                     content.innerHTML = '<h3>Eliminar Juego</h3><p>Confirmación para eliminar juegos.</p>';

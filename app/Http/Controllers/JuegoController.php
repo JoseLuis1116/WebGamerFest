@@ -63,7 +63,7 @@ class JuegoController extends Controller
     {
         $categorias = Categoria::all();
         $modalidades = Modalidad::all();
-        return view('juegos.edit', compact('juego', 'categorias', 'modalidades'));
+        return view('juegos.edit', compact('juego'));
     }
 
     /**
@@ -96,4 +96,15 @@ class JuegoController extends Controller
         $juego->delete();
         return redirect()->route('juegos.index')->with('success', 'Juego eliminado con éxito.');
     }
+
+    public function showHomePage() {
+        $juegos = Juego::all(); // Obtén todos los juegos
+        return view('welcome', compact('juegos'));
+    }
+    public function list()
+    {
+        $juegos = Juego::all();
+        return response()->json($juegos);
+    }
+
 }

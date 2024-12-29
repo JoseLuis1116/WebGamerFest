@@ -269,42 +269,12 @@
         <section class="games-section" id="games-section">
             <h2>Nuestros Juegos</h2>
             <div class="games-grid">
-                <div>
-                    <img src="/images/freefire.jpg" alt="Free Fire">
-                    <p>Free Fire</p>
-                </div>
-                <div>
-                    <img src="/images/leagueoflegends.jpg" alt="League of Legends">
-                    <p>League of Legends</p>
-                </div>
-                <div>
-                    <img src="/images/fortnite.jpg" alt="Fortnite">
-                    <p>Fortnite</p>
-                </div>
-                <div>
-                    <img src="/images/clashroyale.jpg" alt="Clash Royale">
-                    <p>Clash Royale</p>
-                </div>
-                <div>
-                    <img src="/images/brawlstars.jpg" alt="Brawl Stars">
-                    <p>Brawl Stars</p>
-                </div>
-                <div>
-                    <img src="/images/fifa23.jpg" alt="FIFA 23">
-                    <p>FIFA 23</p>
-                </div>
-                <div>
-                    <img src="/images/dota2.jpg" alt="Dota 2">
-                    <p>Dota 2</p>
-                </div>
-                <div>
-                    <img src="/images/valorant.jpg" alt="Valorant">
-                    <p>Valorant</p>
-                </div>
-                <div>
-                    <img src="/images/rocketleague.jpg" alt="Rocket League">
-                    <p>Rocket League</p>
-                </div>
+                @foreach($juegos as $juego)
+                    <div>
+                        <img src="{{ asset('storage/' . $juego->ImagenJuego) }}" alt="{{ $juego->NombreJuego }}">
+                        <p>{{ $juego->NombreJuego }}</p>
+                    </div>
+                @endforeach
             </div>
         </section>
 

@@ -10,7 +10,7 @@ class Juego extends Model
     use HasFactory;
 
     protected $table = 'juegos';
-
+    protected $primaryKey = 'IDJuego'; // Reemplaza 'IDJuego' por el nombre correcto de la clave primaria.
     protected $fillable = [
         'NombreJuego',
         'DescripcionJuego',
