@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Role; // Asegúrate de que este modelo exista para manejar los roles
+use App\Models\User;
 
 class UsuarioController extends Controller
 {
@@ -56,4 +57,10 @@ class UsuarioController extends Controller
             return redirect()->back()->withErrors(['error' => 'Hubo un problema al registrar el usuario.']);
         }
     }
+    public function list()
+    {
+        $usuarios = User::all(); // Asegúrate de usar el modelo correcto
+        return response()->json($usuarios);
+    }
+
 }

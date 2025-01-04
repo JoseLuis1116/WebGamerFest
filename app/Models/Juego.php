@@ -10,7 +10,10 @@ class Juego extends Model
     use HasFactory;
 
     protected $table = 'juegos';
-    protected $primaryKey = 'IDJuego'; // Reemplaza 'IDJuego' por el nombre correcto de la clave primaria.
+    protected $primaryKey = 'IDJuego'; // Clave primaria de la tabla
+    public $incrementing = true; // Indica que es autoincremental
+    protected $keyType = 'int'; // Tipo de la clave primaria (entero)
+
     protected $fillable = [
         'NombreJuego',
         'DescripcionJuego',
@@ -22,12 +25,12 @@ class Juego extends Model
     // Relación con Categoría
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'IDCategoria');
+        return $this->belongsTo(Categoria::class, 'IDCategoria', 'IDCategoria');
     }
 
     // Relación con Modalidad
     public function modalidad()
     {
-        return $this->belongsTo(Modalidad::class, 'IDModalidad');
+        return $this->belongsTo(Modalidad::class, 'IDModalidad', 'IDModalidad');
     }
 }

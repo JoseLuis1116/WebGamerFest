@@ -6,7 +6,8 @@ use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\JuegoController;
-
+use App\Http\Controllers\InscripcionController;
+use App\Models\user;
 // Ruta de bienvenida
 Route::get('/', function () {
     return view('welcome');
@@ -15,7 +16,9 @@ Route::get('/', function () {
 // Rutas de registro de usuario
 Route::get('/register', [UsuarioController::class, 'create'])->name('register'); // Mostrar formulario de registro
 Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store'); // Guardar datos del usuario
-
+Route::get('/usuarios/list', [UsuarioController::class, 'list'])->name('usuarios.list');
+Route::get('/juegos/list', [JuegoController::class, 'list'])->name('juegos.list');
+Route::resource('inscripciones', InscripcionController::class);
 //Ruta parar el contralador de juegos
 Route::resource('juegos', JuegoController::class);
 
@@ -63,8 +66,30 @@ Route::middleware(['auth'])->group(function () {
 
 //Ruta para los juegos
 Route::get('/', [JuegoController::class, 'showHomePage'])->name('home');
+Route::get('/dashboard-participante', function () {
+    return app('App\Http\Controllers\JuegoController')->showHomePage('usuarios.participantes_dashboard');
+})->name('participant.dashboard');
+
+
 Route::get('/juegos/{juego}/edit', [JuegoController::class, 'edit'])->name('juegos.edit');
 
 // Rutas para administradores (resource)
 Route::resource('administradores', AdministradorController::class)->middleware('auth');
 Route::get('/api/juegos', [JuegoController::class, 'list']);
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/participante/dashboard', [InscripcionController::class, 'create'])->name('participante.dashboard');
+    Route::post('/participante/dashboard', [InscripcionController::class, 'store'])->name('inscripciones.store');
+});
+Route::get('/juegos/list', [JuegoController::class, 'list'])->name('juegos.list');
+
+Route::post('/participante/dashboard', [InscripcionController::class, 'store'])->name('inscripciones.store');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/inscripciones/store', [InscripcionController::class, 'store'])->name('inscripciones.store');
+});
+
+
+Route::get('/participante/dashboard', [InscripcionController::class, 'create'])->name('participante.dashboard');
+
+Route::post('/inscripciones/store', [InscripcionController::class, 'store'])->name('inscripciones.store');
