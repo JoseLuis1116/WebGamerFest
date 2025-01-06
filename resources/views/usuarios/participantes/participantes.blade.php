@@ -179,6 +179,11 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
 
+        select option {
+            color: #000000;
+            background-color: #ffffff;
+        }
+
         input::placeholder {
             color: #ffffff;
             opacity: 0.7;
@@ -205,6 +210,27 @@
             box-shadow: 0 0 10px #e94560, 0 0 20px #0f3460;
         }
 
+        #notification {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        #notification.success {
+            background-color: #4caf50;
+            color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #notification.error {
+            background-color: #f44336;
+            color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -224,6 +250,58 @@
                 transform: translateX(0);
             }
         }
+
+        .dropdown-btn {
+            background: #00796B;
+            color: white;
+            font-size: 16px;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .dropdown-btn:hover {
+            background: #009688;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-menu a, .dropdown-menu form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            font-weight: normal;
+            color: white;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-menu a:hover, .dropdown-menu form button:hover {
+            background-color: #FFC107;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -232,7 +310,7 @@
         <div class="sidebar">
             <h2>Gamer Fest</h2>
             <ul>
-                <li class="active">Juegos inscripción</li>
+                <li class="active">Inscribirse a juegos</li>
                 <li>Estado de inscripción</li>
                 <li>Juegos inscritos</li>
             </ul>
@@ -240,7 +318,17 @@
         <div class="content">
             <div class="header">
                 <h1>Dashboard de Participante</h1>
-                <div class="user">{{ auth()->user()->name }}</div>
+                <div class="user-menu">
+                <span class="user">{{ auth()->user()->name }}</span>
+                    <button class="dropdown-btn" onclick="toggleDropdown()">⋮</button>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <a href="/profile">Ir al Perfil</a>
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <button type="submit">Cerrar Sesión</button>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="main">
                 <!-- Contenido dinámico aquí -->
@@ -253,15 +341,36 @@
             const menuItems = document.querySelectorAll('.sidebar ul li');
             const contentArea = document.querySelector('.main');
             const sidebar = document.querySelector('.sidebar');
-            const toggleButton = document.querySelector('.toggle-sidebar');
+            const toggleSidebarButton = document.querySelector('.toggle-sidebar');
 
-            toggleButton.addEventListener('click', () => {
-                sidebar.classList.toggle('visible');
-                sidebar.classList.toggle('hidden');
+            // Función para alternar la visibilidad de la sidebar
+            toggleSidebarButton.addEventListener('click', () => {
+                if (sidebar.classList.contains('hidden')) {
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.add('visible');
+                } else {
+                    sidebar.classList.add('hidden');
+                    sidebar.classList.remove('visible');
+                }
             });
 
+            // Función para obtener juegos dinámicamente desde el backend
+            const fetchJuegos = async () => {
+                try {
+                    const response = await fetch("{{ route('juegos.list') }}");
+                    const juegos = await response.json();
+                    return juegos.map(juego => `<option value="${juego.IDJuego}">${juego.NombreJuego}</option>`).join('');
+                } catch (error) {
+                    console.error('Error fetching juegos:', error);
+                    return '<option>Error al cargar los juegos</option>';
+                }
+            };
+
+            // Función para cargar contenido dinámico
             const loadContent = async (key) => {
-                if (key === "Juegos inscripción") {
+                if (key === "Inscribirse a juegos") {
+                    const juegosOptions = await fetchJuegos();
+
                     contentArea.innerHTML = `
                         <h2>Registrar Inscripción</h2>
                         <form id="form-inscripcion" enctype="multipart/form-data">
@@ -271,8 +380,9 @@
 
                             <div>
                                 <label for="IDJuego">Juego:</label>
-                                <select id="IDJuego" name="IDJuego">
-                                    <!-- Opciones dinámicas cargadas aquí -->
+                                <select id="IDJuego" name="IDJuego" required>
+                                    <option value="">Seleccione un juego</option>
+                                    ${juegosOptions}
                                 </select>
                             </div>
                             <div>
@@ -285,16 +395,72 @@
                             </div>
                             <div>
                                 <label for="ComprobantePago">Comprobante de Pago:</label>
-                                <input type="file" id="ComprobantePago" name="ComprobantePago">
+                                <input type="file" id="ComprobantePago" name="ComprobantePago" accept=".jpg,.png,.pdf">
                             </div>
-                            <button type="submit">Registrar</button>
+                            <div style="display: flex; gap: 10px;">
+                                <button type="submit">Registrar</button>
+                                <button type="button" id="clear-form">Limpiar</button>
+                            </div>
                         </form>
+                        <div id="notification" class="success" style="display:none;">Inscripción registrada con éxito</div>
                     `;
+
+                    // Manejo del botón de limpiar formulario
+                    document.getElementById('clear-form').addEventListener('click', () => {
+                        document.getElementById('form-inscripcion').reset();
+                        document.getElementById('notification').style.display = 'none';
+                    });
+
+                    // Manejo del envío del formulario
+                    document.querySelector('#form-inscripcion').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+
+                        const form = e.target;
+                        if (!form.checkValidity()) {
+                            const notification = document.getElementById('notification');
+                            notification.textContent = 'Por favor, complete todos los campos requeridos.';
+                            notification.className = 'error';
+                            notification.style.display = 'block';
+                            return;
+                        }
+
+                        const formData = new FormData(form);
+
+                        try {
+                            const response = await fetch("{{ route('inscripciones.store') }}", {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                }
+                            });
+
+                            const notification = document.getElementById('notification');
+
+                            if (response.ok) {
+                                notification.textContent = 'Inscripción registrada con éxito';
+                                notification.className = 'success';
+                                notification.style.display = 'block';
+                                form.reset();
+                            } else {
+                                const error = await response.json();
+                                notification.textContent = 'Error: ' + error.message;
+                                notification.className = 'error';
+                                notification.style.display = 'block';
+                            }
+                        } catch (error) {
+                            const notification = document.getElementById('notification');
+                            notification.textContent = 'Error en el registro. Inténtelo nuevamente.';
+                            notification.className = 'error';
+                            notification.style.display = 'block';
+                        }
+                    });
                 } else {
                     contentArea.innerHTML = "<p>Contenido no disponible</p>";
                 }
             };
 
+            // Manejo del menú
             menuItems.forEach(item => {
                 item.addEventListener('click', () => {
                     menuItems.forEach(i => i.classList.remove('active'));
@@ -304,32 +470,33 @@
                 });
             });
 
-            loadContent("Juegos inscripción");
+            // Cargar contenido inicial
+            loadContent("Inscribirse a juegos");
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const selectJuego = document.querySelector('#IDJuego');
+        document.addEventListener('click', (event) => {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            const dropdownBtn = document.querySelector('.dropdown-btn');
 
-            const cargarJuegos = async () => {
-                try {
-                    const response = await fetch('/api/juegos'); // Asegúrate de que esta ruta esté configurada.
-                    if (!response.ok) throw new Error('Error al cargar los juegos.');
-                    const juegos = await response.json();
-
-                    // Rellena el select con las opciones dinámicas
-                    juegos.forEach(juego => {
-                        const option = document.createElement('option');
-                        option.value = juego.IDJuego;
-                        option.textContent = juego.NombreJuego;
-                        selectJuego.appendChild(option);
-                    });
-                } catch (error) {
-                    console.error(error.message);
-                }
-            };
-
-            cargarJuegos();
+            if (!dropdownMenu.contains(event.target) && !dropdownBtn.contains(event.target)) {
+                dropdownMenu.classList.remove('active');
+            }
         });
+
+        function toggleDropdown() {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (event) => {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+
+            if (!dropdownMenu.contains(event.target) && !dropdownBtn.contains(event.target)) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
     </script>
 </body>
 </html>

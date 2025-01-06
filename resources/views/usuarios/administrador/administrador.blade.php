@@ -323,6 +323,57 @@
             margin-bottom: 15px;
         }
 
+        .dropdown-btn {
+            background: #00796B;
+            color: white;
+            font-size: 16px;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .dropdown-btn:hover {
+            background: #009688;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-menu a, .dropdown-menu form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            font-weight: normal;
+            color: white;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-menu a:hover, .dropdown-menu form button:hover {
+            background-color: #FFC107;
+            color: black;
+        }
 
     </style>
 </head>
@@ -364,8 +415,17 @@
         <main class="main-panel expanded" id="main-panel">
             <header class="header" role="banner">
                 <h2>DASHBOARD ADMINISTRADOR</h2>
-                <!-- Carga dinámica del nombre -->
-                <p>Bienvenido, {{ $user->name }}.</p>
+                <div class="user-menu">
+                <span class="user-name">{{ $user->name }}</span>
+                    <button class="dropdown-btn" onclick="toggleDropdown()">⋮</button>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <a href="/profile">Ir al Perfil</a>
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <button type="submit">Cerrar Sesión</button>
+                        </form>
+                    </div>
+                </div>
             </header>
             <div class="content" id="content">
                 <h3>Bienvenido al panel de administrador</h3>
@@ -597,6 +657,30 @@
                     content.innerHTML = '<h3>Bienvenido al panel de administrador</h3><p>Selecciona una opción del menú para empezar.</p>';
             }
         }
+
+        document.addEventListener('click', (event) => {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+
+            if (!dropdownMenu.contains(event.target) && !dropdownBtn.contains(event.target)) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
+        function toggleDropdown() {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (event) => {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+
+            if (!dropdownMenu.contains(event.target) && !dropdownBtn.contains(event.target)) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
     </script>
 </body>
 </html>
