@@ -1,0 +1,122 @@
+/* Fondo general */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Contenedor principal */
+.profile-container {
+    max-width: 900px;
+    width: 100%;
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5), 0 0 50px rgba(0, 0, 0, 0.8);
+    margin: 0 auto;
+}
+
+/* Título principal */
+.profile-title {
+    font-size: 28px;
+    color: #ff00ff;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+/* Contenedor de cada sección */
+.profile-section {
+    background: #1c1c1c;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(255, 0, 255, 0.5);
+}
+
+/* Borde entre secciones */
+.profile-section-border {
+    height: 1px;
+    background: rgba(255, 0, 255, 0.6);
+    margin: 20px 0;
+}
+
+/* Inputs ajustados */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 20px); /* Reduce el ancho para que haya espacio */
+    padding: 10px;
+    margin: 0 auto; /* Centra los inputs */
+    border-radius: 8px;
+    border: 2px solid #ff00ff;
+    background-color: #000;
+    color: #fff;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Asegura que padding y bordes no aumenten el tamaño */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #ff00aa;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+/* Botón ajustado */
+button {
+    background: #ff00ff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    display: block;
+    width: 150px; /* Ancho fijo para el botón */
+    margin-left: auto; /* Centra el botón */
+    margin-right: auto;
+}
+
+button:hover {
+    background: #ff00aa;
+    transform: scale(1.05);
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 20px;
+    }
+
+    .profile-title {
+        font-size: 24px;
+    }
+
+    .profile-section {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        font-size: 14px;
+    }
+}

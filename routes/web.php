@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\InscripcionController;
 use App\Models\user;
+
 // Ruta de bienvenida
 Route::get('/', function () {
     return view('welcome');
@@ -70,7 +71,6 @@ Route::get('/dashboard-participante', function () {
     return app('App\Http\Controllers\JuegoController')->showHomePage('usuarios.participantes_dashboard');
 })->name('participant.dashboard');
 
-
 Route::get('/juegos/{juego}/edit', [JuegoController::class, 'edit'])->name('juegos.edit');
 
 // Rutas para administradores (resource)
@@ -89,7 +89,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/inscripciones/store', [InscripcionController::class, 'store'])->name('inscripciones.store');
 });
 
-
 Route::get('/participante/dashboard', [InscripcionController::class, 'create'])->name('participante.dashboard');
 
 Route::post('/inscripciones/store', [InscripcionController::class, 'store'])->name('inscripciones.store');
+
+// NUEVA RUTA: Perfil de usuario (Fortify/Jetstream)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/profile', function () {
+        return view('profile.show');
+    })->name('profile.show');
+});
