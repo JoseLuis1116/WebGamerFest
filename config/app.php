@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'providers' => [
+        Laravel\Fortify\FortifyServiceProvider::class,
+        Laravel\Jetstream\JetstreamServiceProvider::class,
+    ],
 ];

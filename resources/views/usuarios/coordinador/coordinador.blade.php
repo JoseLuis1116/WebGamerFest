@@ -11,86 +11,33 @@
             font-family: 'Arial', sans-serif;
             color: white;
             background-color: #1a1a1a;
-            overflow-x: hidden;
         }
 
         .dashboard {
             display: flex;
             height: 100vh;
-            flex-direction: column;
-        }
-
-        @media (min-width: 768px) {
-            .dashboard {
-                flex-direction: row;
-            }
+            overflow: hidden;
         }
 
         /* Menú lateral */
         .sidebar {
             position: fixed;
             top: 0;
-            transform: translateX(-100%); /* Oculto inicialmente */
+            left: 0;
             height: 100%;
             width: 300px;
             background: linear-gradient(180deg, #004D40, #00796B, #009688);
             overflow-y: auto;
-            transition: transform 0.3s ease-in-out;
-            z-index: 1000;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .sidebar.active {
-            transform: translateX(0); /* Visible al activarse */
-        }
-
-        .main-panel {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            background-color: #222;
-            transition: margin-left 0.3s ease-in-out;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
         }
 
-        .main-panel.expanded {
-            margin-left: 300px;
-        }
-
-        /* Botón de apertura/cierre */
-        .toggle-btn {
-            display: block;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #00796B;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            font-size: 18px;
-            cursor: pointer;
-            z-index: 1100;
-            transition: background 0.3s ease-in-out;
-        }
-
-        .toggle-btn:hover {
-            background: #009688;
-        }
-
-        .close-btn {
-            display: block;
-            align-self: flex-end;
-            margin: 10px 20px 0;
-            background: #009688;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 15px;
-            cursor: pointer;
-        }
-
-        .close-btn:hover {
-            background: #00BFA5;
+        .sidebar.visible {
+            transform: translateX(0);
         }
 
         .logo {
@@ -166,6 +113,19 @@
         }
 
         /* Panel principal */
+        .main-panel {
+            flex: 1;
+            margin-left: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #222;
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .main-panel.shifted {
+            margin-left: 300px;
+        }
+
         .header {
             background: linear-gradient(to right, #004D40, #00796B, #009688);
             color: white;
@@ -176,6 +136,21 @@
             font-size: 22px;
             font-weight: bold;
             text-transform: uppercase;
+        }
+
+        .toggle-sidebar-btn {
+            background: #FFC107;
+            color: #222;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .toggle-sidebar-btn:hover {
+            background: #FFD54F;
         }
 
         .content {
@@ -199,92 +174,151 @@
             font-size: 16px;
         }
 
-        /* Notificaciones */
-        .notifications {
-            margin-top: 20px;
-            background: #333;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        /* Usuario en cabecera */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            position: relative;
         }
 
-        .notifications h4 {
-            color: #00E676;
-            text-shadow: 0 0 10px #00E676;
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid #FFC107;
+            object-fit: cover;
         }
 
-        .notifications p {
+        .user-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .dropdown-btn {
+            background: #00796B;
+            color: white;
+            font-size: 16px;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .dropdown-btn:hover {
+            background: #009688;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-menu a, .dropdown-menu form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: left;
             font-size: 14px;
-            color: #CCC;
+            font-family: 'Arial', sans-serif;
+            font-weight: normal;
+            color: white;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        /* Responsividad */
-        @media (max-width: 1024px) {
-            .main-panel {
-                margin-left: 0;
-            }
-
-            .toggle-btn {
-                display: block;
-            }
-
-            .close-btn {
-                display: block;
-            }
-
-            .sidebar {
-                width: 100%;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .toggle-btn {
-                display: none; /* Ocultar en pantallas grandes */
-            }
-
-            .sidebar {
-                transform: translateX(0);
-                width: 300px;
-            }
-
-            .main-panel {
-                margin-left: 300px;
-            }
+        .dropdown-menu a:hover, .dropdown-menu form button:hover {
+            background-color: #FFC107;
+            color: black;
         }
 
         @media (max-width: 768px) {
-            .header {
-                font-size: 18px;
-                padding: 15px;
-            }
-
             .content {
                 margin: 10px;
                 padding: 15px;
             }
 
-            .section ul li a {
-                font-size: 14px;
-                padding: 8px 15px;
+            .content h3 {
+                font-size: 20px;
             }
 
-            .logo-text {
+            .content p {
+                font-size: 14px;
+            }
+
+            .header {
+                font-size: 18px;
+                padding: 15px;
+            }
+
+            .toggle-sidebar-btn {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .sidebar {
+                width: 240px;
+            }
+
+            .main-panel.shifted {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                margin: 5px;
+                padding: 10px;
+            }
+
+            .content h3 {
                 font-size: 18px;
             }
-        }
 
-        /* Estilo para el foco */
-        a:focus, button:focus {
-            outline: 2px solid #FFC107;
-            outline-offset: 2px;
-        }
+            .content p {
+                font-size: 12px;
+            }
 
+            .header {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .toggle-sidebar-btn {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-panel.shifted {
+                margin-left: 200px;
+            }
+        }
     </style>
 </head>
 <body>
-    <button class="toggle-btn" aria-label="Abrir/Cerrar menú" role="button" onclick="toggleSidebar()">☰ Menú</button>
     <div class="dashboard">
-        <aside class="sidebar" id="sidebar" role="complementary">
+        <aside class="sidebar" id="sidebar">
             <div class="logo">
                 <img src="/images/logov2.png" alt="Coordinador Logo" class="logo-img" loading="lazy">
                 <h1 class="logo-text">COORDINADOR</h1>
@@ -300,49 +334,54 @@
                 </div>
             </nav>
         </aside>
-        <main class="main-panel expanded" id="main-panel">
-            <header class="header" role="banner">
+        <main class="main-panel" id="main-panel">
+            <header class="header">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</button>
                 <h2>DASHBOARD COORDINADOR</h2>
-                <p>Bienvenido, {{ $user->name }}.</p>
+                <div class="user-menu">
+                    <span class="user-name">{{ $user->name }}</span>
+                    <button class="dropdown-btn" onclick="toggleDropdown()">⋮</button>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <a href="/profile">Ir al Perfil</a>
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <button type="submit">Cerrar Sesión</button>
+                        </form>
+                    </div>
+                </div>
             </header>
             <div class="content" id="content">
                 <h3>Vista Previa</h3>
                 <p>Aquí encontrarás información sobre tus juegos asignados y notificaciones importantes.</p>
-                <div class="notifications">
-                    <h4>Notificaciones</h4>
-                    <p>- Te toca coordinar el "Juego 1" el 10 de enero a las 14:00.</p>
-                    <p>- El "Juego 3" ha sido reprogramado para el 12 de enero.</p>
-                </div>
             </div>
         </main>
     </div>
-
     <script>
-        const sidebar = document.querySelector('.sidebar');
-        const mainPanel = document.querySelector('.main-panel');
-        const content = document.getElementById('content');
-
         function toggleSidebar() {
-            const isExpanded = sidebar.classList.toggle('active');
-            mainPanel.classList.toggle('expanded', isExpanded);
-            document.body.style.overflow = isExpanded ? 'hidden' : 'auto';
+            const sidebar = document.getElementById('sidebar');
+            const mainPanel = document.getElementById('main-panel');
+            sidebar.classList.toggle('visible');
+            mainPanel.classList.toggle('shifted');
         }
 
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 1024) {
-                sidebar.classList.add('active');
-                mainPanel.classList.add('expanded');
-                document.body.style.overflow = 'auto';
-            } else {
-                sidebar.classList.remove('active');
-                mainPanel.classList.remove('expanded');
-                document.body.style.overflow = 'auto';
-            }
-        });
+        function toggleDropdown() {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.toggle('active');
+        }
 
         function showGameDetails(gameName) {
-            content.innerHTML = `<h3>Detalles del ${gameName}</h3><p>Aquí se mostrará la información detallada del ${gameName}.</p>`;
+            const content = document.getElementById('content');
+            content.innerHTML = `<h3>Detalles del ${gameName}</h3><p>Información detallada sobre el ${gameName}.</p>`;
         }
+
+        document.addEventListener('click', (event) => {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+
+            if (!dropdownMenu.contains(event.target) && !dropdownBtn.contains(event.target)) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
