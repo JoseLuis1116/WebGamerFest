@@ -21,6 +21,7 @@
                 color: #fff;
                 font-family: 'League Spartan', sans-serif;
             }
+
             .navbar {
                 background-color: #0d0d0d;
                 border-bottom: 3px solid var(--dynamic-color);
@@ -28,46 +29,60 @@
                 top: 0;
                 z-index: 1000;
             }
+
             .navbar .nav-link {
                 color: #fff;
                 font-size: 0.9rem;
                 text-transform: uppercase;
             }
+
             .navbar .nav-link.active {
                 color: var(--dynamic-color);
                 border-bottom: 2px solid var(--dynamic-color);
                 padding-bottom: 5px;
             }
+
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+            }
+
             .btn-register-fixed {
-                position: absolute;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
+                position: static;
+                transform: none;
+                display: inline-block;
+                margin: 1rem auto;
                 background-color: var(--dynamic-color);
                 color: #fff;
                 border-radius: 20px;
                 padding: 0.5rem 1.5rem;
                 border: 2px solid var(--dynamic-color);
                 font-size: 0.9rem;
-                z-index: 1000;
                 transition: background-color 0.3s, color 0.3s;
-                display: block;
             }
+
             .btn-register-fixed:hover {
                 background-color: transparent;
                 color: var(--dynamic-color);
             }
-            .btn-register-fixed.hidden {
-                display: none;
-            }
+
             .hero {
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
                 justify-content: space-between;
                 background-color: #000;
                 padding: 3rem;
                 border-top: 3px solid var(--dynamic-color);
             }
+
+            .hero img {
+                max-width: 65%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0px 0px 15px var(--dynamic-color);
+                margin-top: 1rem;
+            }
+
             .hero h1 {
                 color: var(--dynamic-color);
                 text-transform: uppercase;
@@ -75,25 +90,63 @@
                 text-shadow: 0px 0px 8px var(--dynamic-color);
                 font-family: 'Press Start 2P', cursive;
             }
+
             .hero p {
                 margin-top: 1rem;
-                font-size: 0.9rem;
+                font-size: 1.1rem;
             }
-            .hero img {
-                max-width: 400px;
+
+            .cards {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.5rem;
+                padding: 2rem;
+                background-color: #000;
+            }
+
+            .card {
+                width: 350px; /* Ancho fijo */
+                height: 160px; /* Alto fijo */
+                background: linear-gradient(145deg, #222, #111);
+                border: 2px solid var(--dynamic-color);
+                border-radius: 15px;
+                text-align: center;
+                padding: 1rem;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8), 0px 0px 15px var(--dynamic-color);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                overflow: hidden;
+            }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.8), 0px 0px 25px var(--dynamic-color);
+            }
+
+            .card h3 {
+                color: var(--dynamic-color);
+                margin-bottom: 0.5rem;
+                font-size: 1.2rem;
+                font-family: 'Press Start 2P', cursive;
+            }
+
+            .card p {
+                font-size: 0.9rem;
+                color: #ddd;
+                line-height: 1.4;
+            }
+
+            .card img {
+                width: 100%;
                 height: auto;
                 border-radius: 10px;
-                box-shadow: 0px 0px 15px var(--dynamic-color);
+                margin-bottom: 0.5rem;
             }
-            .cards {
-                background-color: #000;
-                display: flex;
-                justify-content: center;
-                gap: 1rem;
-                padding: 2rem;
-            }
+
             .section-title {
-                background-color: #000;
                 text-align: center;
                 font-family: 'Press Start 2P', cursive;
                 color: var(--dynamic-color);
@@ -101,33 +154,12 @@
                 margin-bottom: 1rem;
                 text-shadow: 0px 0px 8px var(--dynamic-color);
             }
-            .card {
-                background-color: #000;
-                border: 2px solid var(--dynamic-color);
-                border-radius: 15px;
-                text-align: center;
-                padding: 1.5rem;
-                box-shadow: 0px 0px 10px var(--dynamic-color);
-                transition: transform 0.3s, box-shadow 0.3s;
-            }
-            .card:hover {
-                transform: scale(1.05);
-                box-shadow: 0px 0px 20px var(--dynamic-color);
-            }
-            .card h3 {
-                color: var(--dynamic-color);
-                margin-bottom: 1rem;
-                font-size: 1rem;
-                font-family: 'Press Start 2P', cursive;
-            }
-            .card p {
-                font-size: 0.8rem;
-                color: #fff;
-            }
+
             .games-section {
                 padding: 2rem;
                 background-color: #000;
             }
+
             .games-section h2 {
                 text-align: center;
                 font-family: 'Press Start 2P', cursive;
@@ -136,11 +168,15 @@
                 margin-bottom: 1rem;
                 text-shadow: 0px 0px 8px var(--dynamic-color);
             }
+
             .games-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 1rem;
+                height: 40%;
+                width: 20%
             }
+
             .games-grid img {
                 width: 100%;
                 height: auto;
@@ -148,20 +184,24 @@
                 box-shadow: 0px 0px 10px var(--dynamic-color);
                 transition: transform 0.3s;
             }
+
             .games-grid img:hover {
                 transform: scale(1.05);
             }
+
             .games-grid p {
                 text-align: center;
                 margin-top: 0.5rem;
                 font-size: 0.9rem;
                 color: #fff;
             }
+
             .sponsors-section {
                 background-color: #000;
                 padding: 2rem;
                 border-top: 3px solid var(--dynamic-color);
             }
+
             .sponsors-section h2 {
                 text-align: center;
                 font-family: 'Press Start 2P', cursive;
@@ -170,6 +210,7 @@
                 margin-bottom: 1rem;
                 text-shadow: 0px 0px 8px var(--dynamic-color);
             }
+
             .sponsors-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -177,27 +218,75 @@
                 justify-items: center;
                 align-items: center;
             }
+
             .sponsors-grid img {
-                max-width: 120px;
+                max-width: 80px;
                 height: auto;
                 filter: grayscale(100%);
                 transition: filter 0.3s;
             }
+
             .sponsors-grid img:hover {
                 filter: grayscale(0%);
             }
+
             footer {
                 background-color: #000;
                 color: #fff;
                 text-align: center;
                 padding: 1rem;
-                font-size: 0.8rem;
+                font-size: 1.0rem;
                 border-top: 3px solid var(--dynamic-color);
             }
-            .btn-register-fixed {
-                position: static;
-                transform: none;
-                display: inline-block;
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .hero {
+                    flex-direction: column;
+                    padding: 2rem 1rem;
+                    text-align: center;
+                }
+
+                .games-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                }
+
+                .btn-register-fixed {
+                    font-size: 0.8rem;
+                    padding: 0.4rem 1rem;
+                }
+
+                .card {
+                    width: 200px;
+                    height: 220px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .navbar .nav-link {
+                    font-size: 0.8rem;
+                }
+
+                .btn-register-fixed {
+                    font-size: 0.7rem;
+                }
+
+                .sponsors-grid img {
+                    max-width: 60px;
+                }
+
+                .card {
+                    width: 250px;
+                    height: 170px;
+                }
+
+                .card h3 {
+                    font-size: 1rem;
+                }
+
+                .card p {
+                    font-size: 0.8rem;
+                }
             }
         </style>
     </head>
@@ -256,11 +345,11 @@
                 </div>
                 <div class="card">
                     <h3>Premios</h3>
-                    <p>Gana grandes premios por demostrar tu habilidad.</p>
+                    <p style="margin-bottom: 35px">Gana grandes premios por demostrar tu habilidad.</p>
                 </div>
                 <div class="card">
                     <h3>Juegos</h3>
-                    <p>Tenemos juegos grupales e individuales para la mejor diversión.</p>
+                    <p style="margin-bottom: 30px">Tenemos juegos grupales e individuales para la mejor diversión.</p>
                 </div>
             </div>
         </section>
@@ -294,7 +383,7 @@
         <!-- Bootstrap Script -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            // Hide register button on scroll
+            // Ocultar el botón de registro al hacer scroll
             const registerButton = document.getElementById('register-button');
             let lastScroll = 0;
 
@@ -308,12 +397,12 @@
                 lastScroll = currentScroll;
             });
 
-            // Dynamic color animation
+            // Animación de color dinámico
             let hue = 0;
             const root = document.documentElement;
 
             function changeColor() {
-                hue = (hue + 0.3 )% 360;
+                hue = (hue + 0.3) % 360;
                 root.style.setProperty('--dynamic-color', `hsl(${hue}, 100%, 50%)`);
                 requestAnimationFrame(changeColor);
             }

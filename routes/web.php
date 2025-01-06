@@ -17,8 +17,14 @@ Route::get('/', function () {
 // Rutas de registro de usuario
 Route::get('/register', [UsuarioController::class, 'create'])->name('register'); // Mostrar formulario de registro
 Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store'); // Guardar datos del usuario
+
+//Ruta para traer la lista de juegos
+Route::get('/api/juegos', [JuegoController::class, 'list']);
+
 Route::get('/usuarios/list', [UsuarioController::class, 'list'])->name('usuarios.list');
+
 Route::get('/juegos/list', [JuegoController::class, 'list'])->name('juegos.list');
+
 Route::resource('inscripciones', InscripcionController::class);
 //Ruta parar el contralador de juegos
 Route::resource('juegos', JuegoController::class);
