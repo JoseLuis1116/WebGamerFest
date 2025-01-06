@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
             background-color: #000;
@@ -13,9 +12,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; 
+            min-height: 100vh; 
             margin: 0;
             font-family: 'Poppins', sans-serif;
+            padding: 10px;
+            overflow: hidden;
         }
 
         .login-container {
@@ -23,14 +24,16 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 30px; /* Ajustado para mayor espacio */
             border-radius: 15px;
             position: relative;
             overflow: hidden;
             background: rgba(0, 0, 0, 0.8);
             box-shadow: 0 4px 30px rgba(255, 0, 255, 0.7);
             max-width: 700px;
-            width: 90%;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .login-container::before {
@@ -48,10 +51,10 @@
         }
 
         .login-container img {
-            max-width: 250px;
-            margin-right: 30px;
+            max-width: 180px;
+            margin-right: 20px;
             border-radius: 10px;
-            z-index: 1;
+            flex-shrink: 0;
         }
 
         .form-container {
@@ -59,37 +62,32 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 20px; /* Espaciado entre todos los elementos */
             width: 100%;
-            padding: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
+            padding: 10px;
         }
 
         .form-container h2 {
-            font-size: 24px;
+            font-size: 1.5rem;
             margin-bottom: 5px;
             color: #ff00ff;
             text-shadow: 0px 0px 5px #ff00ff;
+            text-align: center;
         }
 
         .input-group {
             position: relative;
             width: 100%;
-            max-width: 300px;
+            max-width: 300px; /* Tamaño máximo uniforme */
             margin: 0 auto;
+            margin-bottom: 15px; /* Separación específica entre inputs */
         }
 
         .input-group input {
             padding-left: 35px;
             padding-right: 40px;
             width: 100%;
+            max-width: 300px; /* Ancho uniforme */
             height: 40px;
             border-radius: 8px;
             border: 2px solid #ff00ff;
@@ -129,14 +127,11 @@
             z-index: 2;
         }
 
-        .input-group .toggle-password i {
-            font-size: 14px;
-        }
-
         .form-container button {
-            margin: 0;
+            margin-top: 30px; /* Separación específica entre los inputs y el botón */
             padding: 10px 15px;
-            width: 200px;
+            width: 100%; /* Igual ancho que los inputs */
+            max-width: 300px; /* Límite máximo para todas las pantallas */
             background: #ff00ff;
             color: #fff;
             border: none;
@@ -171,6 +166,52 @@
         .forgot-password:hover {
             color: #ffffff;
         }
+
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                padding: 15px;
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+
+            .login-container img {
+                max-width: 150px;
+                margin-bottom: 15px;
+            }
+
+            .form-container h2 {
+                font-size: 1.2rem;
+            }
+
+            .form-container button {
+                width: 100%;
+            }
+
+            .input-group input {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 10px;
+            }
+
+            .input-group input {
+                height: 35px;
+                font-size: 12px;
+            }
+
+            .form-container h2 {
+                font-size: 1rem;
+            }
+
+            .form-container button {
+                font-size: 14px;
+            }
+        }
+
     </style>
 </head>
 <body>
