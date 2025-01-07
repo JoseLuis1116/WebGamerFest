@@ -197,6 +197,18 @@
             margin-right: 10px;
         }
 
+        @media (min-width: 1024px) {
+            .sidebar {
+                transform: translateX(0) !important;
+            }
+            .main-panel {
+                margin-left: 300px !important;
+            }
+            .toggle-sidebar-btn {
+                display: none;
+            }
+        }
+
         .dropdown-btn {
             background: #00796B;
             color: white;
