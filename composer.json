@@ -13,6 +13,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
+        "pragmarx/google2fa": "^8.0",
         "pragmarx/google2fa-qrcode": "^3.0"
     },
     "require-dev": {

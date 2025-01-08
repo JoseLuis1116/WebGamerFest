@@ -78,7 +78,7 @@
         .input-group {
             position: relative;
             width: 100%;
-            max-width: 300px; /* Tamaño máximo uniforme */
+            max-width: 350px; /* Tamaño máximo uniforme */
             margin: 0 auto;
             margin-bottom: 15px; /* Separación específica entre inputs */
         }
@@ -86,8 +86,8 @@
         .input-group input {
             padding-left: 35px;
             padding-right: 40px;
-            width: 100%;
-            max-width: 300px; /* Ancho uniforme */
+            width: 105%;
+            max-width: 400px; /* Ancho uniforme */
             height: 40px;
             border-radius: 8px;
             border: 2px solid #ff00ff;
@@ -113,8 +113,8 @@
 
         .input-group .toggle-password {
             position: absolute;
-            top: 50%;
-            right: 10px;
+            top: -20%;
+            right: -2px;
             transform: translateY(-50%);
             background: none;
             border: none;
