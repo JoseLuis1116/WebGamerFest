@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
         // Redirigir al dashboard correspondiente con el nombre y rol del usuario
         $dashboardView = match ($user->rol) {
-            'administrador' => 'admin.dashboard',
+            'administrador' => '/admin', // Ruta del panel de Filament
             'participante' => 'participant.dashboard',
             'tesoreria' => 'finance.dashboard',
             'coordinador' => 'coordinator.dashboard',

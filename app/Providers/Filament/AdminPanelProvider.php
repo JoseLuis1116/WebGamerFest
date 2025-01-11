@@ -24,9 +24,9 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('admin')
-            ->path('admin')
-            ->login()
+            ->id('admin') // Identificador único del panel
+            ->path('admin') // Ruta base del panel
+            ->login() // Configura la página de inicio de sesión predeterminada
             ->colors([
                 'primary' => Color::Amber,
             ])
