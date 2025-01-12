@@ -61,12 +61,10 @@ Route::middleware(['auth'])->group(function () {
         ]); // Vista correcta con datos dinámicos
     })->name('coordinador.dashboard');
 
-    Route::get('/participante/dashboard', function () {
-        return view('usuarios.participantes.participantes', [
-            'user' => auth()->user(),
-        ]); // Vista correcta con datos dinámicos
-    })->name('participante.dashboard');
-
+    // Rutas específicas para cada rol
+    Route::get('/participantes/dashboard', function () {
+        return redirect('/participantes'); // Redirige al dashboard de Filament
+    })->name('participantes.dashboard');
 });
 
 //Ruta para los juegos

@@ -56,7 +56,7 @@ class LoginController extends Controller
             case 3: // Coordinador
                 return redirect()->route('coordinador.dashboard');
             case 4: // Participante
-                return redirect()->route('participante.dashboard'); // Asegúrate de que esta ruta exista
+                return redirect()->route('participantes.dashboard'); // Asegúrate de que esta ruta exista
             default:
                 // Rol no autorizado
                 Auth::logout();
