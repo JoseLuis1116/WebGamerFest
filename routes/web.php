@@ -14,6 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+//Cierre de sesión
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 // Rutas de registro de usuario
 Route::get('/register', [UsuarioController::class, 'create'])->name('register'); // Mostrar formulario de registro
 Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store'); // Guardar datos del usuario
@@ -55,10 +58,9 @@ Route::middleware(['auth'])->group(function () {
         ]); // Vista correcta con datos dinámicos
     })->name('tesoreria.dashboard');
 
+    // Rutas específicas para cada rol
     Route::get('/coordinador/dashboard', function () {
-        return view('usuarios.coordinador.coordinador', [
-            'user' => auth()->user(),
-        ]); // Vista correcta con datos dinámicos
+        return redirect('/coordinador'); // Redirige al dashboard de Filament
     })->name('coordinador.dashboard');
 
     // Rutas específicas para cada rol

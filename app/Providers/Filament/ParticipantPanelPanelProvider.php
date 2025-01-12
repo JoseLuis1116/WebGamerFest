@@ -17,11 +17,20 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Event; // Clase para eventos
+use Illuminate\Auth\Events\Logout;  // Evento de cierre de sesión
 
 class ParticipantPanelPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+
+        // Escucha el evento de logout
+        Event::listen(Logout::class, function () {
+            // Redirigir a 'home' al cerrar sesión
+            return redirect()->route('home')->send();
+        });
+
         return $panel
             ->default()
             ->id('participantes')

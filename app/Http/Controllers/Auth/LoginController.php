@@ -63,4 +63,15 @@ class LoginController extends Controller
                 return redirect()->route('login')->withErrors(['error' => 'Rol no autorizado.']);
         }
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirige a la vista 'welcome'
+        return redirect()->route('home');
+    }
 }
