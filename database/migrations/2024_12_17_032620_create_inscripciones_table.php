@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('Inscripciones', function (Blueprint $table) {
             $table->id('IDInscripcion');
-            $table->foreignId('IDUsuario')->constrained('usuarios')->onDelete('cascade'); // Relación con users
-            $table->foreignId('IDJuego')->constrained('Juegos', 'IDJuego')->onDelete('cascade');
+            $table->foreignId('IDUsuario')->constrained('usuarios')->onDelete('cascade'); // Relación con usuarios
+            $table->foreignId('IDJuego')->constrained('Juegos', 'IDJuego')->onDelete('cascade'); // Relación con Juegos
             $table->dateTime('FechaInscripcion');
             $table->dateTime('FechaPago')->nullable();
             $table->decimal('Monto', 8, 2);
-            $table->string('NumeroComprobante')->nullable();
+            $table->string('NumeroComprobante')->unique(); // Declarar la columna antes de aplicar unique
             $table->enum('Estado', ['pendiente', 'aprobado'])->default('pendiente');
             $table->binary('ComprobantePago')->nullable();
             $table->timestamps();

@@ -14,6 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+//Cierre de sesión
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 // Rutas de registro de usuario
 Route::get('/register', [UsuarioController::class, 'create'])->name('register'); // Mostrar formulario de registro
 Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store'); // Guardar datos del usuario
@@ -46,9 +49,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas específicas para cada rol
     Route::get('/admin/dashboard', function () {
-        return view('usuarios.administrador.administrador', [
-            'user' => auth()->user(),
-        ]); // Vista correcta con datos dinámicos
+        return redirect('/admin'); // Redirige al dashboard de Filament
     })->name('admin.dashboard');
 
     Route::get('/tesoreria/dashboard', function () {
@@ -57,18 +58,15 @@ Route::middleware(['auth'])->group(function () {
         ]); // Vista correcta con datos dinámicos
     })->name('tesoreria.dashboard');
 
+    // Rutas específicas para cada rol
     Route::get('/coordinador/dashboard', function () {
-        return view('usuarios.coordinador.coordinador', [
-            'user' => auth()->user(),
-        ]); // Vista correcta con datos dinámicos
+        return redirect('/coordinador'); // Redirige al dashboard de Filament
     })->name('coordinador.dashboard');
 
-    Route::get('/participante/dashboard', function () {
-        return view('usuarios.participantes.participantes', [
-            'user' => auth()->user(),
-        ]); // Vista correcta con datos dinámicos
-    })->name('participante.dashboard');
-
+    // Rutas específicas para cada rol
+    Route::get('/participantes/dashboard', function () {
+        return redirect('/participantes'); // Redirige al dashboard de Filament
+    })->name('participantes.dashboard');
 });
 
 //Ruta para los juegos
