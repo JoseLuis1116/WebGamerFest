@@ -14,9 +14,17 @@ return new class extends Migration
         Schema::create('Grupos', function (Blueprint $table) {
             $table->id('IDGrupo'); // Clave primaria
             $table->string('nombre_equipo');
-            $table->foreignId('IDLider')->constrained('usuarios')->onDelete('cascade'); // Referencia a users
+            $table->foreignId('IDLider')->constrained('usuarios')->onDelete('cascade'); // Referencia a usuarios
             $table->foreignId('IDJuego')->constrained('Juegos', 'IDJuego')->onDelete('cascade');
-            $table->timestamps();
+
+            // Campos adicionales
+            $table->enum('estado', ['Pendiente', 'Verificado'])->default('Pendiente'); // Estado del grupo
+            $table->string('numero_comprobante')->nullable(); // Número de comprobante
+            $table->string('comprobante')->nullable(); // Archivo de comprobante (imagen)
+            $table->date('fecha_inscripcion')->nullable(); // Fecha de inscripción
+            $table->date('fecha_pago')->nullable(); // Fecha de pago
+
+            $table->timestamps(); // Marcas de tiempo
         });
     }
 

@@ -26,6 +26,12 @@ class InscripcionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Gestion de Inscripciones';
+
+    protected static ?string $label = 'Inscribirse al torneo';
+
+    protected static ?string $pluralLabel = 'Inscribirse al torneo';
+
     public static function form(Form $form): Form
     {
         return $form

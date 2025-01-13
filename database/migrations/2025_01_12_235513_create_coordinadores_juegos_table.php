@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Coordinadores_Juegos', function (Blueprint $table) {
+        Schema::create('coordinadores_juegos', function (Blueprint $table) {
             $table->id(); // ID autoincremental de la relación
             $table->foreignId('IDCoordinador') // Relaciona al usuario con rol de coordinador
                   ->constrained('usuarios', 'id') // Relación con la tabla 'usuarios'

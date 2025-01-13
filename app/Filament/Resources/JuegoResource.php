@@ -21,6 +21,12 @@ class JuegoResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Gestion de Juegos';
+
+    protected static ?string $label = 'Gestionar Juegos';
+
+    protected static ?string $pluralLabel = 'Gestionar Juegos';
+
     public static function form(Form $form): Form
     {
         return $form

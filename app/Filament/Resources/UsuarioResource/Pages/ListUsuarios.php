@@ -12,9 +12,7 @@ class ListUsuarios extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        return [];
     }
 
     protected function canCreate(): bool

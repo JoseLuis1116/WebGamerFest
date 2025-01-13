@@ -10,7 +10,7 @@ class CoordinadorJuego extends Model
     use HasFactory;
 
     // Nombre de la tabla asociada
-    protected $table = 'Coordinadores_Juegos';
+    protected $table = 'coordinadores_juegos';
 
     // Campos que pueden ser asignados de manera masiva
     protected $fillable = [
