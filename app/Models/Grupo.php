@@ -9,10 +9,14 @@ class Grupo extends Model
 {
     use HasFactory;
 
-    // Definir la tabla si el nombre no sigue la convención plural
     protected $table = 'Grupos';
 
-    // Definir las columnas que son asignables
+    protected $primaryKey = 'IDGrupo';
+
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
     protected $fillable = [
         'nombre_equipo',
         'IDLider',
@@ -24,17 +28,47 @@ class Grupo extends Model
         'fecha_pago',
     ];
 
-    // Definir las relaciones
-
-    // Un grupo tiene un líder (relación con el modelo Usuario)
-    public function lider()
+    /**
+     * Evento para asignar valores automáticos.
+     */
+    protected static function boot()
     {
-        return $this->belongsTo(Usuario::class, 'IDLider');
+        parent::boot();
+
+        static::creating(function ($grupo) {
+            $grupo->fecha_inscripcion = now();
+            $grupo->fecha_pago = now();
+        });
     }
 
-    // Un grupo pertenece a un juego (relación con el modelo Juego)
+    /**
+     * Relación: Un grupo pertenece a un líder (usuario).
+     */
+    public function lider()
+    {
+        return $this->belongsTo(Usuario::class, 'IDLider', 'id'); // Ajusta 'id' si es necesario.
+    }
+
+    /**
+     * Relación: Un grupo pertenece a un juego.
+     */
     public function juego()
     {
-        return $this->belongsTo(Juego::class, 'IDJuego');
+        return $this->belongsTo(Juego::class, 'IDJuego', 'IDJuego');
+    }
+
+    /**
+     * Relación: Un grupo tiene muchos integrantes.
+     */
+    public function integrantesGrupo()
+    {
+        return $this->hasMany(IntegranteGrupo::class, 'id_grupo', 'IDGrupo'); // 'id_grupo' es el nombre correcto en la tabla `integrantes_grupo`
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('withRelations', function ($query) {
+            $query->with(['lider', 'integrantesGrupo.usuario']);
+        });
     }
 }

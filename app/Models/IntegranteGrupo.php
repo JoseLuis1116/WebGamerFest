@@ -9,26 +9,61 @@ class IntegranteGrupo extends Model
 {
     use HasFactory;
 
-    // Definir la tabla si el nombre no sigue la convención plural
+    /**
+     * Tabla asociada al modelo.
+     *
+     * @var string
+     */
     protected $table = 'integrantes_grupo';
 
-    // Definir las columnas que son asignables
+    /**
+     * Clave primaria personalizada.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id_integrante';
+
+    /**
+     * Indica si la clave primaria es auto-incremental.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+    /**
+     * Tipo de la clave primaria.
+     *
+     * @var string
+     */
+    protected $keyType = 'int';
+
+    /**
+     * Atributos que son asignables en masa.
+     *
+     * @var array
+     */
     protected $fillable = [
         'id_grupo',
         'id_usuario',
     ];
 
-    // Definir las relaciones
-
-    // Un integrante pertenece a un grupo (relación con el modelo Grupo)
+    /**
+     * Relación: Un integrante pertenece a un grupo.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function grupo()
     {
-        return $this->belongsTo(Grupo::class, 'id_grupo');
+        return $this->belongsTo(Grupo::class, 'id_grupo', 'IDGrupo');
     }
 
-    // Un integrante pertenece a un usuario (relación con el modelo Usuario)
+    /**
+     * Relación: Un integrante pertenece a un usuario.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'id_usuario');
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'id');
     }
 }
