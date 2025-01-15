@@ -53,9 +53,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('admin.dashboard');
 
     Route::get('/tesoreria/dashboard', function () {
-        return view('usuarios.tesorero.tesorero', [
-            'user' => auth()->user(),
-        ]); // Vista correcta con datos dinámicos
+        return redirect('/tesoreria'); // Redirige al dashboard de Filament
     })->name('tesoreria.dashboard');
 
     // Rutas específicas para cada rol

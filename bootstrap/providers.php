@@ -5,6 +5,7 @@ return [
     App\Providers\Filament\AdminPanelProvider::class,
     App\Providers\Filament\CoordinadorPanelPanelProvider::class,
     App\Providers\Filament\ParticipantPanelPanelProvider::class,
+    App\Providers\Filament\TesoreriaPanelProvider::class,
     App\Providers\FortifyServiceProvider::class,
     App\Providers\JetstreamServiceProvider::class,
 ];

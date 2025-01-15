@@ -25,8 +25,8 @@ class DashboardController extends Controller
         $dashboardView = match ($user->rol) {
             'administrador' => '/admin', // Ruta del panel de Filament
             'participante' => '/participantes',
-            'tesoreria' => '/coordinador',
-            'coordinador' => 'coordinator.dashboard',
+            'tesoreria' => '/tesoreria',
+            'coordinador' => '/coordinador',
             default => 'home',
         };
 
