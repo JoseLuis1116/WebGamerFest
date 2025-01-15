@@ -20,7 +20,7 @@ return new class extends Migration
             // Campos adicionales
             $table->enum('estado', ['Pendiente', 'Verificado'])->default('Pendiente'); // Estado del grupo
             $table->string('numero_comprobante')->nullable(); // Número de comprobante
-            $table->blob('comprobante')->nullable(); // Archivo de comprobante (imagen)
+            $table->binary('comprobante'); // Cambia "nombre_de_la_columna" al nombre correcto
             $table->date('fecha_inscripcion')->nullable(); // Fecha de inscripción
             $table->date('fecha_pago')->nullable(); // Fecha de pago
 
