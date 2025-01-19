@@ -24,11 +24,11 @@ class JuegosAsignadosResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('coordinador.nombre')
+                Tables\Columns\TextColumn::make('coordinador.name') // Cambiado a 'name'
                     ->label('Coordinador')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('juego.nombre')
+                Tables\Columns\TextColumn::make('juego.NombreJuego') // Asegúrate de que 'nombre' exista en la tabla juegos
                     ->label('Juego')
                     ->sortable()
                     ->searchable(),

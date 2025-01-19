@@ -42,7 +42,7 @@ class VerificarPagosResource extends Resource
                     ->label('Estado')
                     ->options([
                         'pendiente' => 'Pendiente',
-                        'verificado' => 'Verificado',
+                        'aprobado' => 'Aprobado',
                         'rechazado' => 'Rechazado',
                     ])
                     ->required(),
